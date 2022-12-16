@@ -1,29 +1,52 @@
+/* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
+import checkAuth from '../middlewares/Auth'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/login'
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+ {
+  path: '/login',
+  name: 'Login',
+  meta: {
+   requiresAuth: false,
+  },
+  component: () =>
+   import('../pages/login/Login'),
+ },
+ {
+  path: '/home',
+  name: 'Home',
+  meta: {
+   requiresAuth: true,
+  },
+  component: () => import('../pages/home/Home'),
+ },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  routes,
+})
+
+// const isAuthenticated = async (login, senha) =>{
+//   return checkAuth(login, senha)
+// }
+
+router.beforeEach(async (to, from, next) => {
+  // console.log(to, from)
+ if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (true == true) {
+   next()
+  } else {
+   next('/')
+  }
+ } else {
+  next()
+ }
 })
 
 export default router
