@@ -5,6 +5,11 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import "font-awesome/css/font-awesome.min.css";
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+//defined as global component
+Vue.component('font-awesome-icon', require('vue-fontawesome-icon/VueFontawesome.vue').default);
+ 
 import CustomInput from './components/CustomInput'
 import Navbar from './components/Navbar'
 import Button from './components/Button'
