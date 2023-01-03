@@ -1,5 +1,4 @@
 <template>
- <div id="App">
     <BootstrapSidebar
       :initial-show="initialShow"
       :links="links"
@@ -7,18 +6,28 @@
       :fa="true"
       @sidebarChanged="onSidebarChanged"
     >
+    
       <template v-slot:navbar>
-        <b-navbar
+       
+        <!-- <b-navbar
           id="mainNavbar"
           toggleable="lg"
           type="light"
           variant="light"
           fixed="top"
-        >
-          <b-navbar-nav>
-            <b-nav-item> Navbar </b-nav-item>
-          </b-navbar-nav>
-        </b-navbar>
+        > -->
+          <!-- <b-navbar-nav> -->
+            <!-- <b-nav-item>  -->
+               <!-- <b-img-lazy 
+                style="width:50px; height:50px"
+                src="https://cdnfw.nyc3.digitaloceanspaces.com/framework/mborges/imagens/identidade/logoapp.png"
+                v-bind="mainProps"
+                >
+               </b-img-lazy>        -->
+
+             <!-- </b-nav-item> -->
+          <!-- </b-navbar-nav> -->
+        <!-- </b-navbar> -->
       </template>
 
       <template v-slot:content>
@@ -27,29 +36,7 @@
         </b-container>
       </template>
     </BootstrapSidebar>
-  </div>
-   <!-- <b-navbar type="light" variant="light">
-        <b-navbar-nav>
 
-            <b-nav-item-dropdown 
-                v-for="menu in construtorMenu" 
-                v-if="menu.dropdown"
-                v-bind:key="menu.nome" 
-                :text="menu.nome" 
-            >
-                <b-dropdown-item 
-                    v-for="drop in menu.dropdown" 
-                    v-bind:key="drop.nome" 
-                >
-                    <p 
-                        @click="drop.click"
-                    >
-                            {{drop.nome}}
-                    </p>
-                </b-dropdown-item>
-            </b-nav-item-dropdown>
-        </b-navbar-nav>
-    </b-navbar> -->
 </template>
 
 <script>
@@ -62,35 +49,24 @@ export default {
     
     data:function(){
         return {
-            initialShow: true,
-            header: "<h3>Sidebar</h3>",
+            initialShow: false,
+            header: "",
             links: [
-                { name: "Home", href: { name: "home" }, faIcon: ["fas", "home"] },
-                    {
-                    name: "Dropdown",
-                    faIcon: ["fas", "tint"],
-                    children: [
-                        {
-                        name: "Child Item 1",
-                        href: {
-                            name: "child-item-1",
-                        },
-                        faIcon: ["fas", "child"],
-                        },
-                        {
-                        name: "Child Item 2",
-                        href: {
-                            name: "child-item-2",
-                        },
-                        faIcon: ["fas", "child"],
-                        },
-                    ],
-                    },
-                    { name: "About", href: { name: "about" }, faIcon: "users" },
-                    { name: "Contact", href: { name: "contact" }, faIcon: "phone" },
-                ],
-            
+                { name: "Home", href: { name: "Home" }, faIcon: "home" },
+                { name: "Agendamentos", href: { name: "agendamentos" }, faIcon: "calendar" },
+                { name: "Sair", href: { name: "Login" }, faIcon: "arrow-left" },
+            ],
+            mainProps: {
+              center: true,
+              fluidGrow: true,
+              blank: true,
+              blankColor: '#bbb',
+              width: 100,
+              height: 200,
+              class: 'my-5'
             }
+            
+        }
     },
     props: {
         menu: {
@@ -98,41 +74,7 @@ export default {
         },
     },
     computed:{
-        construtorMenu(){
-            return [
-                {
-                    nome:"Categorias",
-                    dropdown:[
-                        {
-                            nome:"Carros",
-                            click:()=>this.$router.push({name:'Login'})
-                        },
-                        {
-                            nome:"Caminhonete",
-                            click:()=>this.$router.push({name:'Login'})
-                        }
-                    ]
-                },
-                     {
-                    nome:"Meus anuncios",
-                    dropdown:[
-                        {
-                            nome:"Criar anuncio",
-                            click:()=>this.$router.push({name:'Login'})
-                        },
-                        {
-                            nome:"Ver meus anuncios",
-                            click:()=>this.$router.push({name:'Login'})
-                        }
-                    ]
-                },
-                {
-                    nome:"Notificações",
-                    click:()=>this.$router.push({name:'Login'})
-                }
-            ]
-
-        }
+        
     },
     mounted(){
         console.log(this.$route)

@@ -3,7 +3,10 @@
     <Navbar
       v-if="$route && $route.name != 'Login'"
     />
-    <router-view/>
+
+    <router-view
+      v-if="$route && $route.name == 'Login'"
+    />
   </div>
 </template>
 
