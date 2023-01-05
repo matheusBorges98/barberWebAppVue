@@ -2,11 +2,8 @@
   <div id="app">
     <Navbar
       v-if="$route && $route.name != 'Login'"
-    />
-
-    <router-view
-      v-if="$route && $route.name == 'Login'"
-    />
+    />  
+      <router-view/>
   </div>
 </template>
 
