@@ -1,30 +1,33 @@
 <template>
-  <b-row style="height: 100vh; background:black" :class="'justify-content-md-end'">
+  <b-row style="background:black" :class="'justify-content-md-end'">
       <Card 
-        cols="3"
+        colSM="12"
+        colMD="6"
+        colLG="4"
+        colXL="3"
         :alignRight="true"
-        :logoUrl="''"
+        :logoUrl="'https://cdnfw.nyc3.digitaloceanspaces.com/framework/mborges/imagens/identidade/logo.png'"
       >
-        <b-col v-for="input in inputs" v-bind:key="input.model">
-          <CustomInput
-            class="text-center"
-            :label="input.label"
-            :placeholder="input.placeholder"
-            v-model="input.model"
-            :valid="null"
-            v-on:changeValue="onChildUpdate"
-          />
-        </b-col>
-        <b-col cols="12" style="margin-top:5vh">
-          <b-row class="text-center">
-            <b-col cols="6">
-              <b-button v-on:click="sendData()">Novo</b-button>
-            </b-col>
-            <b-col cols="6">
-              <b-button v-on:click="sendData()">Enviar</b-button>
-            </b-col>
-          </b-row>
-        </b-col>
+			<b-col class="text-center" v-for="input in inputs" v-bind:key="input.model">
+				<CustomInput
+					class="text-center"
+					:label="input.label"
+					:placeholder="input.placeholder"
+					v-model="input.model"
+					:valid="null"
+					v-on:changeValue="onChildUpdate"
+				/>
+			</b-col>
+			<b-col cols="12" style="margin-top:5vh">
+				<b-row class="text-center">
+					<b-col cols="6">
+					<b-button v-on:click="sendData()">Novo</b-button>
+					</b-col>
+					<b-col cols="6">
+					<b-button v-on:click="sendData()">Enviar</b-button>
+					</b-col>
+				</b-row>
+			</b-col>
       </Card>
 
   </b-row> 
@@ -60,7 +63,7 @@ export default {
       let isAuth      = false,
       {nome, senha}   = this.user;
       isAuth          = await authentication(nome, senha);
-      isAuth = true
+      // isAuth 			 = true
       isAuth          == true ? this.$router.push({name:'Home'}).catch(() => {}) : null;
       
 

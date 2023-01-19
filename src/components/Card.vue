@@ -1,15 +1,22 @@
 <template>
-    <b-col :cols="cols">
-      <b-card  
-        :img-src="logoUrl"
-        v-bind:title="titulo"
-      >
+    <b-col 
+      :sm="colSM"
+      :md="colMD"
+      :lg="colLG"
+      :xl="colXL"
+    >
+      
+        <b-card  
+          :img-src="logoUrl"
+          v-bind:title="titulo"
+        >
 
-      <b-col style="margin-top:30vh">
-        <slot> </slot>
-      </b-col>
+        <b-col style="top: 30vh; position: relative;">
+          <slot> </slot>
+        </b-col>
 
-      </b-card> 
+        </b-card> 
+    
     </b-col>
 
 </template>
@@ -26,9 +33,24 @@ export default {
       type: String,
       // required: true,
     },
-    cols: {
+    colSM: {
       type: String,
-      required: true,
+      required: false,
+      default:"12",
+    },
+    colMD: {
+      type: String,
+      required: false,
+      default:"12",
+    },
+    colLG: {
+      type: String,
+      required: false,
+      default:"12",
+    },
+    colXL: {
+      type: String,
+      required: false,
       default:"12",
     },
     alignRight:{
@@ -52,11 +74,18 @@ export default {
   height: 100vh;
 }
 
-/* .card-img{
+ /* .fade-enter,
+   .fade-leave-to {
+      opacity: 0;
+   } */
+
+.card-img{
   padding-left: 2vh;
   padding-right: 2vh;
+  width: 20px;
+  height: 60px;
 
-} */
+}
 
 
 </style>
