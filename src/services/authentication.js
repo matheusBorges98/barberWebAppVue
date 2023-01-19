@@ -4,17 +4,18 @@ export default async function authentication(login, senha) {
     console.log(login, senha)
   try{
     let isAuthenticated = false,
-        usuario         = {
-            email     : login,
-            password  : senha
-        }
-        // usuario = {
-        //     email: "admin@gearhead.com.br",
-        //     password: "@4Gearhead2022"
-        //  }
+        // usuario         = {
+        //     email     : login,
+        //     password  : senha
+        // }
+        usuario = {
+            email: "admin@gearhead.com.br",
+            password: "@4Gearhead2022"
+         }
 
     
-    console.log(usuario)
+    // console.log(usuario)
+      debugger
     let response = await axios.post(`http://localhost:8080/auth/sign_in`,{ ...usuario }, 
         {
             headers: {

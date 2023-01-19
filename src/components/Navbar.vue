@@ -1,62 +1,14 @@
 <template>
-  <div>
-    <b-button v-b-toggle.sidebar-backdrop>
-      Menu
-    </b-button>
-
-    <b-sidebar
-      id="sidebar-backdrop"
-      backdrop
-	  no-header
-    >
-		<b-row
-			class="main-container" align-v="center"
-		>
-			<b-col
-				class="container-logo-cliente" 
-				md="12" 
-				sm="12"
-			>
-				<b-img-lazy 
-					class="logo-cliente"
-					src="https://cdnfw.nyc3.digitaloceanspaces.com/framework/mborges/imagens/identidade/logoapp.png"
-				>
-				</b-img-lazy>       
-
-			</b-col>
-			
-			<b-col 
-				md="12"
-				sm="12"
-				class="conatiner-itens-menu"
-				v-for="(link, index) in links"
-				v-bind:key="index"
-				
-			>
-				<b>
-					{{link.header}}
-				</b>
-				<p
-					v-for="(child, index) in link.links"
-					v-bind:key="index"
-					class="nav-item-menu"
-					@click="changeRoute(child.route)"
-				>
-					{{child.label}}
-				</p>
-
-			</b-col>
-
-		</b-row>
-              
-    </b-sidebar>
-  </div>
-
+ <vue-navigation-bar 
+ 	:options="navbarOptions"  
+	@vnb-item-clicked="changeRoute"
+/>
 
 </template>
 
 <script>
 import BootstrapSidebar from "vue-bootstrap-sidebar";
+import brandImage from "../assets/mb-solucoes.png"
 export default {
     components: {
         BootstrapSidebar,
@@ -65,40 +17,125 @@ export default {
     
     data:function(){
         return {
-            initialShow: false,
-            header: "",
-            links: [
-				{
-					"name": "Home",
-					"header": "Geral",
-					"links": [
-						{
-							"label": "Home",
-							"route":"Home",
-							"icon": ""
-						},
-						{
-							"label": "Home2",
-							"route":"Home2",
-							"icon": ""
-						}
-					],
-					
-				},
-				{
-					"name": "Agendamentos",
-					"header": "Agendamentos",
-					"links": [
-						{
-							"label": "Agendar",
-							"route":"agendamento",
-							"icon": ""
-						}
-					],
-					
-				},
-			]
+        navbarOptions: {
+          elementId: "main-navbar",
+          isUsingVueRouter: true,
+          mobileBreakpoint: 992,
+          brandImagePath: "./",
+          brandImage,
+          brandImageAltText: "brand-image",
+          collapseButtonOpenColor: "#661c23",
+          collapseButtonCloseColor: "#661c23",
+          showBrandImageInMobilePopup: true,
+          ariaLabelMainNav: "Main Navigation",
+          tooltipAnimationType: "perspective",
+          tooltipPlacement: "bottom",
+          menuOptionsLeft: [
+            {
+              type: "link",
+              text: "Agendamentos",
+              arrowColor: "#659CC8",
+              subMenuOptions: [
+                {
+					isLinkAction: true,
+					type: "link",
+					text: "Todos Agendamentos",
+					//   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
+					path: { name: "/agendamentos" },
+					iconLeft: '<i class="fa fa-th-list"></i>'
+                },
+                {
+                  type:"hr"
+                },
+                {
+					type: "link",
+					text: "Novo agendamento",
+					// subText: "You\'re a presentation tool!",
+					path: { name: "cadastroAgendamento" },
+					arrowColor: "#659CC8",
+					iconLeft: '<i class="fa fa-calendar-plus-o"></i>'
+                }
+              ]
+            },
+            {
+              type: "link",
+              text: "Serviços",
+              subMenuOptions: [
+                {
+                  type: "link",
+                  text: "Serviços disponíveis",
+                  path: { name: "servicosDisponiveis" },
+				  iconLeft: '<i class="fa fa-indent"></i>'
+                },
+                {
+                  type: "link",
+                  text: "Histórico",
+                  path: { name: "historicoServicos" },
+				  iconLeft: '<i class="fa fa-history"></i>'
+                },
+                // {
+                //   type: "hr",
+                // },
+                // {
+                //   type: "link",
+                //   text: "Reception",
+                //   path: { name: "reception"},
+                //   iconLeft: '<svg id="i-telephone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"> <path d="M3 12 C3 5 10 5 16 5 22 5 29 5 29 12 29 20 22 11 22 11 L10 11 C10 11 3 20 3 12 Z M11 14 C11 14 6 19 6 28 L26 28 C26 19 21 14 21 14 L11 14 Z" /> <circle cx="16" cy="21" r="4" /> </svg>',
+                // },
+              ]
+            },
+            // {
+            //   type: "link",
+            //   text: "Pricing",
+            //   path: { name: "pricing"},
+            //   iconRight: '<i class="fa fa-long-arrow-right fa-fw"></i>',
+            // },
+          ],
+          menuOptionsRight: [
+            // {
+            //   type: "button",
+            //   text: "Sair",
+            //   path: { name: "login" },
+            //   class: "button-red"
+            // },
+			{
+              type: "link",
+              text: "",
+              arrowColor: "#659CC8",
+			  iconRight: '<i class="fa fa-cog"></i>',
+              subMenuOptions: [
+                {
+					// isLinkAction: true,
+					type: "link",
+					// text: "Login",
+					text: "Sair",
+					//   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
+					path: { name: "Login" },
+					iconLeft: '<i class="fa fa-sign-out"></i>'
+                },
+                {
+                  type:"hr"
+                },
+                // {
+				// 	type: "link",
+				// 	text: "Novo agendamento",
+				// 	// subText: "You\'re a presentation tool!",
+				// 	path: { name: "cadastroAgendamento" },
+				// 	arrowColor: "#659CC8",
+				// 	iconLeft: '<i class="fa fa-calendar-plus-o"></i>'
+                // }
+              ]
+            },
+            {
+              type: "button",
+              text: "Login",
+              path: { name: "login" },
+              iconRight: '<svg id="i-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"> <path d="M22 6 L30 16 22 26 M30 16 L2 16" /> </svg>'
+            }
+          ]
         }
+      }	
+        
     },
     props: {
         menu: {
@@ -114,47 +151,37 @@ export default {
     
     methods: {
 		changeRoute(route){
-			this.$router.push({name:`${route}`}).catch(() => {});
+			console.log(route)
+			// this.$router.push({name:`${route}`}).catch(() => {});
 		}
     },
 }
 </script>
 
 <style lang="scss">
-
-.main-container{
-	overflow-y: hidden;
-	padding-left:1vw;
+.vnb{
+	background: #F7F7F7;
+	-webkit-box-shadow:0px 1px 1px #E9E9E9;
+	-moz-box-shadow:0px 1px 1px #E9E9E9;
+	box-shadow:0px 1px 1px #E9E9E9;
 }
 
-.container-logo-cliente{
-	margin-top:2vh;
-	justify-content: center;
-    display: flex;
-}
+// .vnb .button-red {
+//   background: #ff3b30;
+// }
 
-.conatiner-itens-menu{
-	padding-top:0px
-}
+// .vnb .button-red:hover {
+//   background: #fc0d00;
+// }
 
-.logo-cliente{
-	width: 10vw;
-	height: 15vh;
-}
+// .vnb {
+//   .button-red {
+//     background: #ff3b30;
 
-.container-itens{
-	display: flex;
-	align-items: center;
-}
-
-.b-sidebar > .b-sidebar-body {
-	overflow: hidden;
-}
-
-.nav-item-menu{
-	padding-left:3vw;
-	padding-top:1vh;
-}
-
+//     &:hover {
+//       background: darken(#ff3b30, 10%);
+//     }
+//   }
+// }
 </style>
 

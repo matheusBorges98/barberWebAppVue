@@ -59,7 +59,7 @@ export default {
     async sendData() {
       let isAuth      = false,
       {nome, senha}   = this.user;
-      //isAuth          = await authentication(nome, senha);
+      isAuth          = await authentication(nome, senha);
       isAuth = true
       isAuth          == true ? this.$router.push({name:'Home'}).catch(() => {}) : null;
       
