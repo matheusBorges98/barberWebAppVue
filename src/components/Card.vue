@@ -7,11 +7,13 @@
     >
       
         <b-card  
-          :img-src="logoUrl"
           v-bind:title="titulo"
         >
 
-        <b-col style="top: 30vh; position: relative;">
+        <b-col 
+          :class="containerSlotClass"
+          :style="containerSlotStyle"
+        >
           <slot> </slot>
         </b-col>
 
@@ -58,6 +60,14 @@ export default {
        default:false
     },
     logoUrl:{
+      type: String,
+      default:"",
+    },
+    containerSlotStyle:{
+      type: String,
+      default:"",
+    },
+    containerSlotClass:{
       type: String,
       default:"",
     }

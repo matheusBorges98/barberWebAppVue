@@ -21,13 +21,13 @@ export default {
           elementId: "main-navbar",
           isUsingVueRouter: true,
           mobileBreakpoint: 992,
-          brandImagePath: "./",
+          brandImagePath: "Home",
           brandImage,
           brandImageAltText: "brand-image",
           collapseButtonOpenColor: "#661c23",
           collapseButtonCloseColor: "#661c23",
           showBrandImageInMobilePopup: true,
-          ariaLabelMainNav: "Main Navigation",
+          ariaLabelMainNav: "MB Soluções",
           tooltipAnimationType: "perspective",
           tooltipPlacement: "bottom",
           menuOptionsLeft: [
@@ -65,13 +65,13 @@ export default {
                   type: "link",
                   text: "Serviços disponíveis",
                   path: { name: "servicosDisponiveis" },
-				  iconLeft: '<i class="fa fa-indent"></i>'
+				          iconLeft: '<i class="fa fa-indent"></i>'
                 },
                 {
                   type: "link",
                   text: "Histórico",
                   path: { name: "historicoServicos" },
-				  iconLeft: '<i class="fa fa-history"></i>'
+				          iconLeft: '<i class="fa fa-history"></i>'
                 },
                 // {
                 //   type: "hr",
@@ -99,10 +99,10 @@ export default {
             //   class: "button-red"
             // },
 			{
-              type: "link",
-              text: "",
-              arrowColor: "#659CC8",
-			  iconRight: '<i class="fa fa-cog"></i>',
+            type: "link",
+            text: "",
+            arrowColor: "#659CC8",
+			  	iconRight: '<i class="fa fa-user-o" style="font-size:1.7em" aria-hidden="true"></i>',
               subMenuOptions: [
                 {
 					// isLinkAction: true,
@@ -126,12 +126,12 @@ export default {
                 // }
               ]
             },
-            {
-              type: "button",
-              text: "Login",
-              path: { name: "login" },
-              iconRight: '<svg id="i-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"> <path d="M22 6 L30 16 22 26 M30 16 L2 16" /> </svg>'
-            }
+            // {
+            //   type: "button",
+            //   text: "Sair",
+            //   path: { name: "Login" },
+            //   iconRight: '<i style="font-size:1.7em"  class="fa fa-sign-out"></i>'
+            // }
           ]
         }
       }	
