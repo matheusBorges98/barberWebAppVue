@@ -1,31 +1,40 @@
 <template>
-    <b-col 
+  <Transition
+      :name="transitionName"
+  >
+    <b-col
       :sm="colSM"
       :md="colMD"
       :lg="colLG"
       :xl="colXL"
+      v-if="showMyDiv"
     >
-      
+
         <b-card  
           v-bind:title="titulo"
         >
 
-        <b-col 
+        <b-col
           :class="containerSlotClass"
           :style="containerSlotStyle"
         >
           <slot> </slot>
         </b-col>
 
-        </b-card> 
-    
-    </b-col>
+        </b-card>
 
+    </b-col>
+  </Transition>
 </template>
 
 <script>
 export default {
   name: 'Card',
+  data(){
+    return {
+      showMyDiv: false
+    }
+  },
   props: {
     // body: {
     //   type: String,
@@ -70,11 +79,16 @@ export default {
     containerSlotClass:{
       type: String,
       default:"",
-    }
-    // style: {
-    //   type: String,
-    //   required: true,
-    // },
+    },
+    transitionName: {
+      type: String,
+      required: false,
+      default:"fade"
+    },
+  },
+
+  mounted() {
+    this.showMyDiv = true
   },
 }
 </script>
@@ -84,11 +98,6 @@ export default {
   height: 100vh;
 }
 
- /* .fade-enter,
-   .fade-leave-to {
-      opacity: 0;
-   } */
-
 .card-img{
   padding-left: 2vh;
   padding-right: 2vh;
@@ -97,5 +106,25 @@ export default {
 
 }
 
+.card{
+  border-radius: 0 !important;
+}
 
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.5s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-right-enter {
+  transform: translateX(100%);
+}
+.slide-right-leave-to {
+  transform: translateX(-100%);
+}
 </style>
