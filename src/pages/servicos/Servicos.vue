@@ -6,7 +6,7 @@
         colLG="12"
         colXL="12"
         v-if="servicos"
-        containerSlotStyle="top: 5vh; position: relative;"
+        containerSlotStyle="top: 0; position: relative;"
         containerSlotClass="text-center"
     >
       <b-row
@@ -14,12 +14,17 @@
           :key="servico.id"
           class="main-container"
       >
+        <b-col
+          md="2"
+        >
+          <b-img src="https://picsum.photos/125/125/?image=58" rounded="circle" alt="Circle image"></b-img>
+        </b-col>
 
         <b-col md="2">
           <h5>{{ servico.nome }}</h5>
 
         </b-col>
-        <b-col md="6">
+        <b-col md="4">
           <h5>{{ servico.descricao }} minutos</h5>
         </b-col>
         <b-col md="2">
@@ -56,7 +61,7 @@ export default {
 
         },
         {
-          id: "a",
+          id: "b",
           valor: 45,
           duracao: "30",
           nome: "Corte com degradê",
@@ -76,7 +81,10 @@ export default {
 
 <style>
 .main-container {
-  border: 1px solid red;
-  top:2vw;
+  border: 1px solid grey;
+  border-radius: 20px;
+  margin-top:1vw;
+  padding:10px;
+  cursor: pointer;
 }
 </style>
