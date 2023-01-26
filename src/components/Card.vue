@@ -3,25 +3,25 @@
       :name="transitionName"
   >
     <b-col
-      :sm="colSM"
-      :md="colMD"
-      :lg="colLG"
-      :xl="colXL"
-      v-if="showMyDiv"
+        :sm="colSM"
+        :md="colMD"
+        :lg="colLG"
+        :xl="colXL"
+        v-if="showMyDiv"
     >
 
-        <b-card  
+      <b-card
           v-bind:title="titulo"
-        >
+      >
 
         <b-col
-          :class="containerSlotClass"
-          :style="containerSlotStyle"
+            :class="containerSlotClass"
+            :style="containerSlotStyle"
         >
-          <slot> </slot>
+          <slot></slot>
         </b-col>
 
-        </b-card>
+      </b-card>
 
     </b-col>
   </Transition>
@@ -30,16 +30,12 @@
 <script>
 export default {
   name: 'Card',
-  data(){
+  data() {
     return {
       showMyDiv: false
     }
   },
   props: {
-    // body: {
-    //   type: String,
-    //   required: true,
-    // },
     titulo: {
       type: String,
       // required: true,
@@ -47,43 +43,43 @@ export default {
     colSM: {
       type: String,
       required: false,
-      default:"12",
+      default: "12",
     },
     colMD: {
       type: String,
       required: false,
-      default:"12",
+      default: "12",
     },
     colLG: {
       type: String,
       required: false,
-      default:"12",
+      default: "12",
     },
     colXL: {
       type: String,
       required: false,
-      default:"12",
+      default: "12",
     },
-    alignRight:{
-       type: Boolean,
-       default:false
+    alignRight: {
+      type: Boolean,
+      default: false
     },
-    logoUrl:{
+    logoUrl: {
       type: String,
-      default:"",
+      default: "",
     },
-    containerSlotStyle:{
+    containerSlotStyle: {
       type: String,
-      default:"",
+      default: "",
     },
-    containerSlotClass:{
+    containerSlotClass: {
       type: String,
-      default:"",
+      default: "",
     },
     transitionName: {
       type: String,
       required: false,
-      default:"fade"
+      default: "fade"
     },
   },
 
@@ -94,11 +90,11 @@ export default {
 </script>
 
 <style>
-.card-body{
+.card-body {
   height: 100vh;
 }
 
-.card-img{
+.card-img {
   padding-left: 2vh;
   padding-right: 2vh;
   width: 20px;
@@ -106,7 +102,7 @@ export default {
 
 }
 
-.card{
+.card {
   border-radius: 0 !important;
 }
 
@@ -114,6 +110,7 @@ export default {
 .fade-enter-active, .fade-leave-active {
   transition: all 0.5s ease;
 }
+
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
@@ -121,9 +118,11 @@ export default {
 .slide-right-enter-active, .slide-right-leave-active {
   transition: all 0.5s ease;
 }
+
 .slide-right-enter {
   transform: translateX(100%);
 }
+
 .slide-right-leave-to {
   transform: translateX(-100%);
 }

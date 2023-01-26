@@ -1,6 +1,6 @@
 import Vue from 'vue'
 //import { BootstrapVue, IconsPlugin } from '../node_modules/bootstrap-vue'
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -10,7 +10,7 @@ import 'vue-navigation-bar/dist/vue-navigation-bar.css';
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 //defined as global component
 Vue.component('font-awesome-icon', require('vue-fontawesome-icon/VueFontawesome.vue').default);
- 
+
 import CustomInput from './components/CustomInput'
 import Navbar from './components/Navbar'
 import Button from './components/Button'
@@ -38,9 +38,9 @@ Vue.component('vue-navigation-bar', VueNavigationBar);
 Vue.config.productionTip = false
 
 new Vue({
- router,
- store,
- Login,
- // AuthMiddleware,
- render: (h) => h(App),
+    router,
+    store,
+    Login,
+    // AuthMiddleware,
+    render: (h) => h(App),
 }).$mount('#app')

@@ -19,6 +19,15 @@ const routes = [
    import('../pages/login/Login'),
  },
  {
+  path: '/servicos',
+  name: 'Servicos',
+  meta: {
+   requiresAuth: true,
+  },
+  component: () =>
+      import('../pages/servicos/Servicos'),
+ },
+ {
   path: '/home',
   name: 'Home',
   meta: {
