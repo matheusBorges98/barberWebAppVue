@@ -9,33 +9,38 @@
         containerSlotStyle="top: 0; position: relative;"
         containerSlotClass="text-center"
     >
-      <b-row
-          v-for="servico in servicos"
-          :key="servico.id"
-          class="main-container"
-      >
+      <b-row>
         <b-col
-          md="2"
+            xl="6"
+            md="12"
+            v-for="servico in servicos"
+            :key="servico.id"
+            class="main-container"
         >
-          <b-img src="https://picsum.photos/125/125/?image=58" rounded="circle" alt="Circle image"></b-img>
-        </b-col>
+          <b-col
 
-        <b-col md="2">
-          <h5>{{ servico.nome }}</h5>
+          >
+            <b-img height="50px" src="https://picsum.photos/125/125/?image=58" rounded="circle"
+                   alt="Circle image"></b-img>
+          </b-col>
 
-        </b-col>
-        <b-col md="4">
-          <h5>{{ servico.descricao }} minutos</h5>
-        </b-col>
-        <b-col md="2">
+          <b-col>
+            <h7>{{ servico.nome }}</h7>
 
-          <h5>{{ servico.duracao }} minutos</h5>
+          </b-col>
+          <b-col>
+            <h7>{{ servico.descricao }} minutos</h7>
+          </b-col>
+          <b-col>
 
-        </b-col>
-        <b-col md="2">
+            <h7>{{ servico.duracao }} minutos</h7>
+
+          </b-col>
+          <b-col>
 
 
-          <h5>R${{ servico.valor }}</h5>
+            <h7>R${{ servico.valor }}</h7>
+          </b-col>
         </b-col>
       </b-row>
     </Card>
@@ -83,8 +88,8 @@ export default {
 .main-container {
   border: 1px solid grey;
   border-radius: 20px;
-  margin-top:1vw;
-  padding:10px;
+  /*margin-top: 1vw;*/
+  padding: 10px;
   cursor: pointer;
 }
 </style>
