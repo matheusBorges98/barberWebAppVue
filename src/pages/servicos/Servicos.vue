@@ -11,12 +11,13 @@
       >
         <b-row>
           <b-col
-              xl="4"
+              xl="6"
               lg="6"
               md="12"
               sm="12"
               v-for="servico in servicos"
               :key="servico.id"
+              class="container"
 
           >
             <b-col
@@ -103,9 +104,19 @@
     color: #373737;
     box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
     padding: 30px;
-    /*margin:5px;*/
+    cursor: pointer;
+    /*margin-top:5px;*/
     /*width: auto;*/
   }
+
+  .container{
+    margin-top:5px
+  }
+
+  .container :hover{
+    background-color: #F7F7F7;
+  }
+
 
 
   </style>
