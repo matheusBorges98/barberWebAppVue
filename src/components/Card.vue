@@ -92,6 +92,7 @@ export default {
 <style>
 .card-body {
   height: 100vh;
+  background-color: #f2f2f2
 }
 
 .card-img {
