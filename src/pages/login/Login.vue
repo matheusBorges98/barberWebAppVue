@@ -109,7 +109,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+.card-body {
+  height: 100vh !important;
+  background-color: #f2f2f2
+}
 
 .fundo-login {
   // background:linear-gradient(0deg, rgba(204,239,255,1) 0%, rgba(0,36,61,1) 100%);

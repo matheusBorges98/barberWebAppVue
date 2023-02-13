@@ -52,7 +52,7 @@ export default {
                 type: "link",
                 text: "Novo agendamento",
                 // subText: "You\'re a presentation tool!",
-                path: {name: "cadastroAgendamento"},
+                path: {name: "Agendamentos"},
                 arrowColor: "#659CC8",
                 iconLeft: '<i class="fa fa-calendar-plus-o"></i>'
               }
@@ -159,7 +159,7 @@ export default {
 
 <style lang="scss">
 .vnb {
-  background: #F7F7F7;
+  background: white;
   -webkit-box-shadow: 0px 1px 1px #E9E9E9;
   -moz-box-shadow: 0px 1px 1px #E9E9E9;
   box-shadow: 0px 1px 1px #E9E9E9;

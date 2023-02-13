@@ -12,6 +12,7 @@
 
       <b-card
           v-bind:title="titulo"
+          :style="$route.name === 'Login' ? 'height: 100vh' : 'height:calc(100vh - 100px);'"
       >
 
         <b-col
@@ -32,7 +33,8 @@ export default {
   name: 'Card',
   data() {
     return {
-      showMyDiv: false
+      showMyDiv: false,
+      cardHeight: "",
     }
   },
   props: {
@@ -84,14 +86,13 @@ export default {
   },
 
   mounted() {
-    this.showMyDiv = true
+    this.showMyDiv = true;
   },
 }
 </script>
 
 <style>
 .card-body {
-  height: 100vh;
   background-color: #f2f2f2
 }
 

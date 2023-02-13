@@ -1,9 +1,16 @@
 <template>
   <b-row>
     <!-- <Navbar/> -->
-    <b-col md="12" class="container text-center">
-      <h5 class="text">Home</h5>
-    </b-col>
+    <Card
+        colSM="12"
+        colMD="12"
+        colLG="12"
+        colXL="12"
+        containerSlotStyle="top: 0; position: relative;"
+        containerSlotClass="text-center"
+    >
+      <p>home</p>
+    </Card>
   </b-row>
 </template>
 
