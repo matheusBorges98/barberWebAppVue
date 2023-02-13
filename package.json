@@ -14,6 +14,7 @@
     "font-awesome": "^4.7.0",
     "vue": "^2.6.12",
     "vue-bootstrap-sidebar": "^1.0.9",
+    "vue-cal": "^3.11.0",
     "vue-flip": "1.0.2",
     "vue-fontawesome-icon": "^1.3.0",
     "vue-navigation-bar": "^4.1.0",

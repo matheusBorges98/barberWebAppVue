@@ -16,7 +16,7 @@
 
 <style lang="scss">
 #app {
-  font-family: Verdana, Geneva, sans-serif;
+  //font-family: Verdana, Geneva, sans-serif;
   color: #282A35;
   padding: 0;
   width: 100vw;
