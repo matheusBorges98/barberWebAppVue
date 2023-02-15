@@ -45,6 +45,24 @@ const routes = [
         },
         component: () => import('../pages/agendamentos/Agendamentos'),
     },
+    {
+        path: '/detalhesAgendamento',
+        name: 'Detalhes Agendamento',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/agendamentos/DetalhesAgendamento'),
+    },
+    {
+        path: '/cadastroAgendamento',
+        name: 'Cadastro Agendamento',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/agendamentos/CadastroAgendamento'),
+    },
 ]
 
 const router = new VueRouter({
