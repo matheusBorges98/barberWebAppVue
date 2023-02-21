@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications/>
     <Navbar
         v-if="$route && $route.name != 'Login'"
     />

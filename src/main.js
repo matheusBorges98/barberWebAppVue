@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import "font-awesome/css/font-awesome.min.css";
 import 'vue-navigation-bar/dist/vue-navigation-bar.css';
+import Notifications from 'vue-notification'
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 //defined as global component
 Vue.component('font-awesome-icon', require('vue-fontawesome-icon/VueFontawesome.vue').default);
@@ -26,7 +27,7 @@ import store from './store'
 import Login from './pages/login/Login'
 
 Vue.component('vue-flip', VueFlip)
-
+Vue.use(Notifications);
 Vue.component('CustomInput', CustomInput)
 Vue.component('Card', Card)
 Vue.component('Navbar', Navbar)

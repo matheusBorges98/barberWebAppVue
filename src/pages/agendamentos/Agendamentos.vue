@@ -70,9 +70,16 @@ export default {
       //   class: 'sport',
       //
       // })
-      return this.$router.push({name: 'Cadastro Agendamento', params: {evento: item, ...this.servicoSelecionado}}).catch((e) => {
-        console.error(e)
-      })
+      if(this.$route.params && this.$route.params.servico){
+        return this.$router.push({name: 'Cadastro Agendamento', params: {servico:this.$route.params.servico, horario: item}}).catch((e) => {
+          console.error(e)
+        })
+      }else{
+        return this.$router.push({name: 'Servicos', params: {horario: item}}).catch((e) => {
+          console.error(e)
+        })
+      }
+
     },
 
     eventClick(evento){

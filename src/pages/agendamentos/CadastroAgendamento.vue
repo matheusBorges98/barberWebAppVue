@@ -51,6 +51,10 @@
                     <b-col sm="6">
                       <h6 class="service-details">R${{ servico.valor }} </h6>
                     </b-col>
+                    <b-col class="mt-5" sm="12">
+                      <h5 class="service-date-humanized">Horário agendado:
+                        {{dataFormatada}} <b-icon icon="clock-fill"></b-icon></h5>
+                    </b-col>
                   </b-row>
 
                 </b-col>
@@ -63,14 +67,14 @@
         <b-col cols="12" style="margin-top:5vh">
           <b-row class="text-center" style="align-content: space-between;">
             <b-col cols="12">
-              <b-button variant="primary" class="col-12" v-on:click="sendData()">
+              <b-button variant="primary" class="col-12" v-on:click="enviarAgendamento()">
                 Confirmar Agendamento
                 <b-icon icon="bookmark-check-fill"></b-icon>
               </b-button>
             </b-col>
 
             <b-col cols="12" style="margin-top:10px">
-              <b-button variant="light" class="col-12" v-on:click="sendData()">
+              <b-button variant="light" class="col-12" v-on:click="voltar()">
                 Voltar
                 <b-icon icon="arrow-return-left"></b-icon>
               </b-button>
@@ -88,18 +92,43 @@ export default {
   data: function (){
     return{
       servico:{},
-      horarioAgendamento:""
+      horarioAgendamento:"",
+      dataFormatada:""
     }
   },
   mounted() {
     console.log(this.$route.params)
     this.servico = this.$route.params.servico;
-    this.horarioAgendamento = this.$route.params.evento;
+    this.horarioAgendamento = this.$route.params.horario;
+
+    this.humanizedDateString(this.horarioAgendamento);
+  },
+
+  methods:{
+    enviarAgendamento(){
+      this.$notify({
+        title: 'Important message',
+        text: 'Hello user!'
+      });
+    },
+
+    humanizedDateString(dateString){
+      const nDate = new Date(dateString);
+      const diaMesAno = nDate.toLocaleDateString();
+      const hora = nDate.toLocaleTimeString();
+
+      this.dataFormatada = `${diaMesAno} - ${hora}`;
+    },
+
+    voltar(){
+      this.$router.go(-1);
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 .main-container {
   background-color: #fff;
   color: #373737;
@@ -125,7 +154,18 @@ export default {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 30px;
+  /*font-weight: 400;*/
+  /*transition: font-weight 1s ease-out 500ms;*/
+  transition: transform .2s;
 }
+
+.service-container:hover{
+  transform: scale(1.05);
+  border-bottom:rgb(0, 96, 177) 2px solid;
+
+}
+
+
 
 .service-name {
   font-size: 16px;
@@ -140,5 +180,10 @@ export default {
 .service-details {
   font-size: 15px;
   font-weight: 500;
+}
+
+.service-date-humanized {
+  font-size: 16px;
+  font-weight: 600;
 }
 </style>
