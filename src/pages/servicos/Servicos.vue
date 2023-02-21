@@ -102,9 +102,16 @@ export default {
 
     selected(servico) {
       console.log(servico)
-      return this.$router.push({name: 'Agendamentos', params: {servico}}).catch((e) => {
-        console.error(e)
-      })
+      if(this.$route.params && this.$route.params.horario){
+        return this.$router.push({name: 'Cadastro Agendamento', params: {servico, horario:this.$route.params.horario}}).catch((e) => {
+          console.error(e)
+        })
+      }else{
+        return this.$router.push({name: 'Agendamentos', params: {servico}}).catch((e) => {
+          console.error(e)
+        })
+      }
+
     },
 
     getServices() {
@@ -172,6 +179,12 @@ export default {
 </script>
 
 <style>
+.service-container:hover{
+  transform: scale(1.05);
+  border-bottom:rgb(0, 96, 177) 2px solid;
+
+}
+
 .main-container {
   background-color: #fff;
   color: #373737;
@@ -197,6 +210,9 @@ export default {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 30px;
+  /*font-weight: 400;*/
+  /*transition: font-weight 1s ease-out 500ms;*/
+  transition: transform .2s;
 }
 
 .service-name {
