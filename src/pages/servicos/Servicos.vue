@@ -5,6 +5,8 @@
       colLG="12"
       colXL="12"
       v-if="servicos"
+      titulo="Serviços"
+      subtitulo="Selecione o serviço desejado"
       containerSlotStyle="top: 0; position: relative;"
       containerSlotClass="text-center"
   >
@@ -39,12 +41,12 @@
                    alt="Circle image"></b-img>
           </b-col>
 
-          <b-col sm="10">
+          <b-col sm="10" class="mt-3">
 
             <b-col sm="12">
               <b-col
                   sm="12"
-                  class="text-start information-container"
+                  class="text-start information-container mt-1"
               >
                 <h5 class="service-name">{{ servico.nome }}</h5>
 
@@ -179,12 +181,6 @@ export default {
 </script>
 
 <style>
-.service-container:hover{
-  transform: scale(1.05);
-  border-bottom:rgb(0, 96, 177) 2px solid;
-
-}
-
 .main-container {
   background-color: #fff;
   color: #373737;
@@ -206,27 +202,36 @@ export default {
 
 .service-container {
   background-color: white;
+  background-image: url('../../assets/service-background.svg');
+  background-size: cover;
   /*border-radius: 20px;*/
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 30px;
+  /*border-top-right-radius: 30px;*/
+  /*border-bottom-right-radius: 0px;*/
+  /*border-bottom-left-radius: 30px;*/
+  border-bottom:lightgray 1px solid;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
   transition: transform .2s;
 }
 
+.service-container:hover{
+  transform: scale(1.08);
+  /*border-bottom: rgb(31, 37, 42) 2px solid;*/
+
+}
+
 .service-name {
-  font-size: 16px;
-  font-weight: 530;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .service-description {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .service-details {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
 }
 

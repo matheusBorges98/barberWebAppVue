@@ -7,6 +7,8 @@
         colXL="12"
         containerSlotStyle="top: 0; position: relative;"
         containerSlotClass="text-center"
+        titulo="Detalhes do agendamento"
+        subtitulo="Verifique detalhes do serviço agendado."
     >
 
       <b-row>
@@ -135,9 +137,9 @@ export default {
 .service-container {
   background-color: white;
   /*border-radius: 20px;*/
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 30px;
+  //border-top-right-radius: 30px;
+  //border-bottom-right-radius: 0px;
+  //border-bottom-left-radius: 30px;
 }
 
 .service-name {

@@ -70,8 +70,9 @@ export default {
       //   class: 'sport',
       //
       // })
+
       if(this.$route.params && this.$route.params.servico){
-        return this.$router.push({name: 'Cadastro Agendamento', params: {servico:this.$route.params.servico, horario: item}}).catch((e) => {
+        return this.$router.push({name: 'Cadastro Agendamento', params: {servico:this.$route.params.servico, horario: this.arredondarTimestampParaBaixo(item)}}).catch((e) => {
           console.error(e)
         })
       }else{
@@ -80,6 +81,14 @@ export default {
         })
       }
 
+    },
+
+    arredondarTimestampParaBaixo(timestamp) {
+      const d = new Date(timestamp);
+      const minutos = d.getMinutes();
+      const minutosArredondados = Math.floor(minutos / 30) * 30;
+      d.setMinutes(minutosArredondados, 0, 0);
+      return d.getTime();
     },
 
     eventClick(evento){

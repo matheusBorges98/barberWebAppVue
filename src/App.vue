@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <notifications/>
+    <notifications
+        position="top right"
+        classes="custom-notify vue-notification"
+    />
     <Navbar
         v-if="$route && $route.name != 'Login'"
     />
-    <b-row v-if="$route && $route.name != 'Login'" class="container-route-name">
-      <b-col class="text-center p-1">
-        <h6 class="route-name">{{ $route.name }}
-          <b-icon icon="file-break-fill"></b-icon>
-        </h6>
-      </b-col>
-    </b-row>
+<!--    <b-row v-if="$route && $route.name != 'Login'" class="container-route-name">-->
+<!--      <b-col class="text-center p-1">-->
+<!--        <h6 class="route-name">{{ $route.name }}-->
+<!--          <b-icon icon="file-break-fill"></b-icon>-->
+<!--        </h6>-->
+<!--      </b-col>-->
+<!--    </b-row>-->
     <router-view/>
   </div>
 </template>
@@ -32,6 +35,20 @@
 
 .route-name{
   font-weight: 540;
+}
+
+.custom-notify{
+  background-color: white;
+  color:black;
+  font-size: 16px;
+}
+
+.notification-content{
+  font-size: 14px;
+}
+
+.notification-title{
+  padding:5px
 }
 
 </style>

@@ -7,6 +7,8 @@
         colXL="12"
         containerSlotStyle="top: 0; position: relative;"
         containerSlotClass="text-center"
+        titulo="Novo agendamento"
+        subtitulo="Confirme o horário e serviço agendado."
     >
 
       <b-row>
@@ -106,10 +108,34 @@ export default {
 
   methods:{
     enviarAgendamento(){
+      const dadosAgendamento = {
+        servico : this.servico,
+        data: this.horarioAgendamento,
+        usuario: {},
+        empresa: "id_empresa"
+      }
+
+      console.log(dadosAgendamento);
+
       this.$notify({
-        title: 'Important message',
-        text: 'Hello user!'
+        title: 'Novo agendamento',
+        text: `
+                <p>O seu agendamento foi confirmado para <b> ${this.getWeekDayName(this.horarioAgendamento)}</b>.</p>
+                <b> ${ this.dataFormatada }</b>
+        `,
+        duration:5000
       });
+
+      this.$router.push({name: 'Meus Agendamentos', params: {}}).catch((e) => {
+        console.error(e)
+      })
+    },
+
+    getWeekDayName(timestamp){
+      const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+      const nomeDia = diasSemana[timestamp.getDay()];
+
+      return nomeDia;
     },
 
     humanizedDateString(dateString){
@@ -151,17 +177,17 @@ export default {
 .service-container {
   background-color: white;
   /*border-radius: 20px;*/
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 30px;
+  //border-top-right-radius: 30px;
+  //border-bottom-right-radius: 0px;
+  //border-bottom-left-radius: 30px;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
   transition: transform .2s;
 }
 
 .service-container:hover{
-  transform: scale(1.05);
-  border-bottom:rgb(0, 96, 177) 2px solid;
+  transform: scale(1.06);
+  //border-bottom:rgb(0, 96, 177) 2px solid;
 
 }
 

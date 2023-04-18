@@ -10,9 +10,15 @@
         v-if="showMyDiv"
     >
 
-      <b-card
-          v-bind:title="titulo"
-          :style="$route.name === 'Login' ? 'height: 100vh' : 'height:calc(100vh - 100px);'"
+<!--      <b-card-->
+<!--          v-bind:title="titulo"-->
+<!--          :style="$route.name === 'Login' ? 'height: 100vh' : 'height:calc(100vh - 100px);'"-->
+<!--      >-->
+        <b-card
+          :sub-title="subtitulo"
+          :title="titulo"
+          :style="$route.name === 'Login' ? 'height: 100vh' : 'height:calc(100vh - 62px);'"
+          body-text-variant="dark"
       >
 
         <b-col
@@ -39,6 +45,10 @@ export default {
   },
   props: {
     titulo: {
+      type: String,
+      // required: true,
+    },
+    subtitulo: {
       type: String,
       // required: true,
     },
