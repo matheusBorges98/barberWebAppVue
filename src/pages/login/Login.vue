@@ -30,6 +30,8 @@
           class="text-center"
           :label="input.label"
           :placeholder="input.placeholder"
+          :isMultiselect="input.isMultiselect"
+          :multiselectOptions="input.multiselectOptions"
           v-model="input.model"
           :valid="null"
           v-on:changeValue="onChildUpdate"
@@ -37,15 +39,21 @@
       </b-col>
       <b-col cols="12" style="margin-top: 5vh">
         <b-row class="text-center" style="align-content: space-between">
-          <b-col cols="12">
-            <b-button variant="primary" class="col-12" v-on:click="sendData()">
+          <b-col cols="6">
+            <b-button variant="outline-primary" class="col-12" v-on:click="sendData()">
+              Criar conta
+              <b-icon icon="person-plus"></b-icon>
+            </b-button>
+          </b-col>
+           <b-col cols="6">
+            <b-button variant="outline-primary" class="col-12" v-on:click="sendData()">
               Entrar
               <b-icon icon="arrow-bar-right"></b-icon>
             </b-button>
           </b-col>
 
-          <b-col cols="12" style="margin-top: 10px">
-            <b-button variant="light" class="col-12" v-on:click="sendData()">
+          <b-col cols="12" class="mt-4">
+            <b-button variant="secondary" class="col-12" v-on:click="sendData()">
               Esqueci minha senha
               <b-icon icon="key-fill"></b-icon>
             </b-button>
@@ -59,10 +67,13 @@
 <script>
 /* eslint-disable */
 
-import authentication from "../../services/authentication";
+import Authentication from "../../services/authentication";
+
+import Mixin from '../../core/Mixin';
 
 export default {
   components: {},
+  mixins: [Mixin],
   data: function () {
     return {
       user: [],
@@ -77,18 +88,32 @@ export default {
           model: "pass",
           placeholder: "Digite sua senha",
         },
+        {
+          label: "Estabelecimento",
+          model: "empresa",
+          placeholder: "Procure o estabelecimento desejado",
+          isMultiselect:true,
+          multiselectOptions:[
+            // { value: "Selecione uma", text: '' },
+            { value: 'Barbearia 99', text: 'Barbearia 99' },
+            { value: 'Barbearia Norte', text: 'Barbearia Norte', },
+          ]
+        },
       ],
     };
   },
   methods: {
     async sendData() {
-      let isAuth = false,
+      let isAuth        = false,
         { nome, senha } = this.user;
-      // isAuth          = await authentication(nome, senha);
+      
+      // isAuth = await Authentication(nome, senha);
       isAuth = true;
       isAuth == true
         ? this.$router.push({ name: "Home" }).catch(() => {})
         : null;
+
+      this.$updateStoreUserData(this.user)
     },
 
     onChildUpdate(newValue) {

@@ -25,23 +25,14 @@ export default {
     }
   },
 
-  mounted(){
-    // this.$store.dispatch('user/setDadosUsuarioLogado', {
-    //   nome: 'João Silva',
-    //   email: 'joao.silva@example.com'
-    // })
-    this.$store.commit(`setPropriedades`, {dadosUsuario : {                        
-        nome: 'João Silva',
-        email: 'joao.silva@example.com'                        
-      }
-    });                              
-
+  mounted(){            
+    console.log(this.$store.getters.getPropriedades.userData, "store")
   }
 }
 </script>
 <style>
 
-div.jsoneditor-outer.has-main-menu-bar {
+/* div.jsoneditor-outer.has-main-menu-bar {
   background-color: grey;
 }
 
@@ -67,7 +58,7 @@ div.jsoneditor-menu a.jsoneditor-poweredBy {
 
 .jsoneditor-treepath{
   color: #fff;
-}
+} */
 
 .container{
   /* width: 75vw;

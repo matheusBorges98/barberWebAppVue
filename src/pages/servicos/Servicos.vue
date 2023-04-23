@@ -92,8 +92,6 @@ export default {
   },
   mounted() {
     this.getServices();
-
-    console.log(this.$store, "store")
   },
 
   methods: {

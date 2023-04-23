@@ -3,12 +3,24 @@
       :config="{label: label}"
       >
        <b-form-input
+          v-if="!isMultiselect"
           class="customInput"
           size="md"
           :v-model="vmodel"
           v-on:change="onChange"
           :state="null"
-        ></b-form-input>
+        >
+        </b-form-input>
+        
+        <b-form-select 
+          class="customInput"
+          v-if="isMultiselect"
+          size="md" 
+          v-model="vmodel" 
+          v-on:change="onChange"
+          :options="multiselectOptions"
+        ></b-form-select>
+
   </FloatingLabel>
 </template>
 
@@ -25,6 +37,11 @@ export default {
       vmodel : this.value
     } 
   },
+
+  updated(){
+    console.log(this.vmodel )
+  },
+
   props: {
     label: {
       type: String,
@@ -44,6 +61,15 @@ export default {
     valid: {
       type: String,
       default: null,
+    },
+    isMultiselect :{
+      type: Boolean,
+      default:false
+    },
+    multiselectOptions: {
+      type: Array,
+      required: false,
+      // default:[]
     },
   },
   computed: {
@@ -93,6 +119,18 @@ input[type="color"]:focus,
 .uneditable-input:focus {   
   box-shadow: 0 0 0;
   outline: 0 none;
+}
+
+.customInput:focus,
+.b-form-select:focus {
+   outline: none !important;
+}
+
+.customInput,
+.b-form-select {
+  border: none !important;
+  background-color: transparent;
+  padding-top: 2vw;
 }
 
 </style>
