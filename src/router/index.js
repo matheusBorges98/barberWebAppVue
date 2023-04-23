@@ -37,13 +37,13 @@ const routes = [
         component: () => import('../pages/home/Home'),
     },
     {
-        path: '/agendamentos',
-        name: 'Agendamentos',
+        path: '/horariosAgendamentos',
+        name: 'Horarios Agendamentos',
         props: true,
         meta: {
             requiresAuth: true,
         },
-        component: () => import('../pages/agendamentos/Agendamentos'),
+        component: () => import('../pages/agendamentos/HorariosAgendamento'),
     },
     {
         path: '/detalhesAgendamento',
@@ -62,6 +62,16 @@ const routes = [
             requiresAuth: true,
         },
         component: () => import('../pages/agendamentos/CadastroAgendamento'),
+    },
+
+    {
+        path: '/meusAgendamentos',
+        name: 'Meus Agendamentos',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/agendamentos/MeusAgendamentos'),
     },
 ]
 
@@ -84,6 +94,6 @@ router.beforeEach(async (to, from, next) => {
     } else {
         next()
     }
-})
+});
 
 export default router

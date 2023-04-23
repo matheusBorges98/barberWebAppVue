@@ -8,6 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "font-awesome/css/font-awesome.min.css";
 import 'vue-navigation-bar/dist/vue-navigation-bar.css';
 import Notifications from 'vue-notification'
+
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 //defined as global component
 Vue.component('font-awesome-icon', require('vue-fontawesome-icon/VueFontawesome.vue').default);
@@ -36,7 +37,9 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.component('vue-navigation-bar', VueNavigationBar);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.prototype.teste = "teste";
 
 new Vue({
     router,

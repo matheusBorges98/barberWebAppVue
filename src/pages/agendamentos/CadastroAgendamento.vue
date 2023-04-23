@@ -99,6 +99,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.teste)
     console.log(this.$route.params)
     this.servico = this.$route.params.servico;
     this.horarioAgendamento = this.$route.params.horario;

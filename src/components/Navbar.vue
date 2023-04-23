@@ -38,11 +38,10 @@ export default {
             arrowColor: "#659CC8",
             subMenuOptions: [
               {
-                isLinkAction: true,
                 type: "link",
-                text: "Todos Agendamentos",
+                text: "Meus Agendamentos",
                 //   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
-                path: {name: "/agendamentos"},
+                path: {name: "Meus Agendamentos"},
                 iconLeft: '<i class="fa fa-th-list"></i>'
               },
               {
@@ -52,7 +51,7 @@ export default {
                 type: "link",
                 text: "Novo agendamento",
                 // subText: "You\'re a presentation tool!",
-                path: {name: "Agendamentos"},
+                path: {name: "Horarios Agendamentos"},
                 arrowColor: "#659CC8",
                 iconLeft: '<i class="fa fa-calendar-plus-o"></i>'
               }

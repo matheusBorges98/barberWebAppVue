@@ -92,6 +92,8 @@ export default {
   },
   mounted() {
     this.getServices();
+
+    console.log(this.$store, "store")
   },
 
   methods: {
@@ -109,7 +111,7 @@ export default {
           console.error(e)
         })
       }else{
-        return this.$router.push({name: 'Agendamentos', params: {servico}}).catch((e) => {
+        return this.$router.push({name: 'Horarios Agendamentos', params: {servico}}).catch((e) => {
           console.error(e)
         })
       }

@@ -24,6 +24,19 @@ export default {
       json:[]
     }
   },
+
+  mounted(){
+    // this.$store.dispatch('user/setDadosUsuarioLogado', {
+    //   nome: 'João Silva',
+    //   email: 'joao.silva@example.com'
+    // })
+    this.$store.commit(`setPropriedades`, {dadosUsuario : {                        
+        nome: 'João Silva',
+        email: 'joao.silva@example.com'                        
+      }
+    });                              
+
+  }
 }
 </script>
 <style>

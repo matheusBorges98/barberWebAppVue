@@ -61,6 +61,8 @@ export default {
   },
   methods: {
     cellClick(item) {
+      console.log(this.teste)
+      this.teste = "teste2"
       console.log(item)
       // this.events.push({
       //   start: '2023-02-13 14:30',
