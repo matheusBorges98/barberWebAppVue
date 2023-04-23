@@ -132,7 +132,9 @@ export default {
       })
     },
 
-    getWeekDayName(timestamp){
+    getWeekDayName(date){
+      console.log(date, "tm")
+      let timestamp = new Date(date)
       const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
       const nomeDia = diasSemana[timestamp.getDay()];
 

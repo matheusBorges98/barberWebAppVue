@@ -53,7 +53,7 @@
           </b-col>
 
           <b-col cols="12" class="mt-4">
-            <b-button variant="secondary" class="col-12" v-on:click="sendData()">
+            <b-button variant="outline-secondary" class="col-12" v-on:click="sendData()">
               Esqueci minha senha
               <b-icon icon="key-fill"></b-icon>
             </b-button>
