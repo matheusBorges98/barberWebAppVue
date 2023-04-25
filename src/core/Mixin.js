@@ -22,9 +22,19 @@ const mixin = {
     },
 
     methods: {
-        $updateStoreUserData(data){
-            this.$store.commit(`setPropriedades`, {userData : {...data}});        
-        }
+        //Cria e atualiza a variavel userData no vuex
+        $setStoreUsuarioLogado(data){
+            this.$store.commit(`setPropriedades`, {informacoesUsuarioLogado : {...data}});        
+        },
+        
+        //Cria e atualiza a variavel servicosOferecidos no vuex
+        $setStoreServicosOferecidos(data){
+            this.$store.commit(`setPropriedades`, {servicosOferecidos : {...data}});        
+        },
+
+        $setStoreServicosAgendados(data){
+            this.$store.commit(`setPropriedades`, {servicosAgendados : data});        
+        },
     },
 
 

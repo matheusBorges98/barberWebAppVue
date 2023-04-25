@@ -36,12 +36,12 @@
           @click="selected(servico)"
       >
         <b-row align-v="center" class="m-1 p-3 service-container">
-          <b-col sm="2" class="p-1">
+          <b-col sm="3" class="p-1">
             <b-img height="100px" width="100px" :src="servico.imgUrl" rounded="circle"
                    alt="Circle image"></b-img>
           </b-col>
 
-          <b-col sm="10" class="mt-3">
+          <b-col sm="9" class="mt-3">
 
             <b-col sm="12">
               <b-col

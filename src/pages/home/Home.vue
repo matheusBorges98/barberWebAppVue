@@ -65,7 +65,7 @@ export default {
   },
 
   mounted(){            
-    console.log(this.$store.getters.getPropriedades.userData, "store")
+    console.log(this.$store.getters.getPropriedades, "store")
   },
 
   methods:{

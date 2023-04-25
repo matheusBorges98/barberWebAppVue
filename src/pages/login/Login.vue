@@ -104,16 +104,22 @@ export default {
   },
   methods: {
     async sendData() {
-      let isAuth        = false,
-        { nome, senha } = this.user;
+      console.log(this.user)
+      let autenticacao = {
+        key: "chaveapiteste"
+      };
+
+      // const { nome, senha, estabelecimento } = this.user;
       
-      // isAuth = await Authentication(nome, senha);
-      isAuth = true;
-      isAuth == true
+      // autenticacao = await Authentication(nome, senha, estabelecimento );
+      autenticacao.key != ""
         ? this.$router.push({ name: "Home" }).catch(() => {})
         : null;
 
-      this.$updateStoreUserData(this.user)
+      this.$setStoreUsuarioLogado({
+        apiKey: autenticacao.key,
+        ...this.user
+      });
     },
 
     onChildUpdate(newValue) {

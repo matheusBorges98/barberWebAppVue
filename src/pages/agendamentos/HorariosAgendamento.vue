@@ -31,8 +31,10 @@ export default {
       events: [
         {
           id:"teste",
-          start: '2023-02-13 10:30',
-          end: '2023-02-13 11:00',
+          start: '2023-04-24 10:30',
+          end: '2023-04-24 11:00',
+          // start: new Date(),
+          // end: new Date(),
           title: 'Corte degradê',
           // content: '<i class="icon material-icons">shopping_cart</i>',
           class: 'leisure',
