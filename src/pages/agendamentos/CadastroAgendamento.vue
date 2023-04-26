@@ -17,6 +17,7 @@
             lg="12"
             md="12"
             sm="12"
+            class="mt-1"
         >
           <b-row align-v="center" class="m-1 p-3 service-container">
             <b-col sm="2" class="p-1">
@@ -69,14 +70,14 @@
         <b-col cols="12" style="margin-top:5vh">
           <b-row class="text-center" style="align-content: space-between;">
             <b-col cols="12">
-              <b-button variant="primary" class="col-12" v-on:click="enviarAgendamento()">
+              <b-button variant="outline-primary" class="col-12" v-on:click="enviarAgendamento()">
                 Confirmar Agendamento
                 <b-icon icon="bookmark-check-fill"></b-icon>
               </b-button>
             </b-col>
 
             <b-col cols="12" style="margin-top:10px">
-              <b-button variant="light" class="col-12" v-on:click="voltar()">
+              <b-button variant="outline-dark" class="col-12" v-on:click="voltar()">
                 Voltar
                 <b-icon icon="arrow-return-left"></b-icon>
               </b-button>
@@ -157,6 +158,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 992px){
+  .service-container {
+    min-height: 50vh;
+  }
+}
 
 .main-container {
   background-color: #fff;
@@ -179,10 +185,10 @@ export default {
 
 .service-container {
   background-color: white;
-  /*border-radius: 20px;*/
-  //border-top-right-radius: 30px;
-  //border-bottom-right-radius: 0px;
-  //border-bottom-left-radius: 30px;
+  border-radius: 10px;
+  // border-top-right-radius: 15px;
+  // border-bottom-right-radius: 0px;
+  // border-bottom-left-radius: 15px;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
   transition: transform .2s;

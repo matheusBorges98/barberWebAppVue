@@ -25,23 +25,23 @@
                                                                    class="help-new-service">aqui</b></p>
       </b-col>
       <b-col
-          xl="6"
+          xl="4"
           lg="6"
           md="12"
           sm="12"
-          v-if="servicos && servicos.length > 0"
+          v-else
           v-for="servico in servicos"
           :key="servico.id"
           class="container"
           @click="selected(servico)"
       >
-        <b-row align-v="center" class="m-1 p-3 service-container">
-          <b-col sm="3" class="p-1">
-            <b-img height="100px" width="100px" :src="servico.imgUrl" rounded="circle"
+        <b-row align-v="center" class="m-2 p-3 service-container">
+          <b-col sm="3" class="p-0">
+            <b-img height="80vh" width="80vw" :src="servico.imgUrl" rounded="circle"
                    alt="Circle image"></b-img>
           </b-col>
 
-          <b-col sm="9" class="mt-3">
+          <b-col sm="9">
 
             <b-col sm="12">
               <b-col
@@ -180,7 +180,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@media (max-width: 992px){
+  .service-container {
+    min-height: 35vh;
+  }
+}
+
+
 .main-container {
   background-color: #fff;
   color: #373737;
@@ -205,13 +212,14 @@ export default {
   background-image: url('../../assets/service-background.svg');
   background-size: cover;
   /*border-radius: 20px;*/
-  /*border-top-right-radius: 30px;*/
-  /*border-bottom-right-radius: 0px;*/
-  /*border-bottom-left-radius: 30px;*/
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 30px;
   border-bottom:lightgray 1px solid;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
   transition: transform .2s;
+  /* max-height: 15vh; */
 }
 
 .service-container:hover{

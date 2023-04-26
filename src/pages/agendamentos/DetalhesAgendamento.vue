@@ -115,6 +115,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@media (max-width: 992px){
+  .service-container {
+    min-height: 50vh;
+  }
+}
+
 .main-container {
   background-color: #fff;
   color: #373737;
@@ -136,10 +143,13 @@ export default {
 
 .service-container {
   background-color: white;
-  /*border-radius: 20px;*/
-  //border-top-right-radius: 30px;
-  //border-bottom-right-radius: 0px;
-  //border-bottom-left-radius: 30px;
+  border-radius: 10px;
+  // border-top-right-radius: 15px;
+  // border-bottom-right-radius: 0px;
+  // border-bottom-left-radius: 15px;
+  /*font-weight: 400;*/
+  /*transition: font-weight 1s ease-out 500ms;*/
+  transition: transform .2s;
 }
 
 .service-name {
