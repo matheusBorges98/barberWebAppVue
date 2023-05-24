@@ -5,6 +5,8 @@ import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import './assets/css/main.css'
+
 import "font-awesome/css/font-awesome.min.css";
 import 'vue-navigation-bar/dist/vue-navigation-bar.css';
 import Notifications from 'vue-notification'

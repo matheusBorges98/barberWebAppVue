@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'BebasNeue-regular';
+    src: url('~@/assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+  }
+/* #app{
+    background-color: black !important;
+} */
+
+#main-navbar{
+    background-color:#000000
+}
+span.vnb__menu-options__option__link{
+    color:white;
+    font-family:BebasNeue-regular;
+    font-size: 21px;
+}
+
+span.vnb__menu-options__option__link:hover{
+    color:#8C8C8C
+}
+
+span.vnb__menu-options__option__link__icon{
+    font-size: small;
+}
+
+div{
+    font-family:BebasNeue-regular;
+    font-size:21px;
+    font-weight: 100;
+    /* background-color:black !important; */
+    /* border:none */
+    
+}
+
+.card-body{
+    /* background-color: #999999 !important; */
+}
+

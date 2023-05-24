@@ -209,12 +209,12 @@ export default {
 
 .service-container {
   background-color: white;
-  background-image: url('../../assets/service-background.svg');
+  /* background-image: url('../../assets/service-background.svg'); */
   background-size: cover;
   /*border-radius: 20px;*/
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 30px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
   border-bottom:lightgray 1px solid;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
@@ -229,22 +229,23 @@ export default {
 }
 
 .service-name {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 600;
 }
 
 .service-description {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .service-details {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
 }
 
 .no-services-found {
-  font-size: 16px;
+  font-size: 21px;
   color: #6b6e6b !important;
 }
 
