@@ -91,7 +91,11 @@
 </template>
 
 <script>
+import Mixin from '../../core/Mixin';
+import axios from "axios";
+
 export default {
+  mixins: [Mixin],
   data: function (){
     return{
       servico:{},
@@ -109,15 +113,25 @@ export default {
   },
 
   methods:{
-    enviarAgendamento(){
+    async enviarAgendamento(){
+      
       const dadosAgendamento = {
         servico : this.servico,
         data: this.horarioAgendamento,
         usuario: {},
-        empresa: "id_empresa"
+        empresa: "id_empresa",
+        profissional:'Carlos Maia',
+        concluido: false
       }
 
-      console.log(dadosAgendamento);
+      // const url = 'https://exemplo.com/api/endpoint'; 
+      // let response = await axios.post(url, dadosAgendamento)
+
+    
+      //Monta ficticio usando store
+      let dadosAgendadosStore = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
+      dadosAgendadosStore.push(dadosAgendamento)
+      this.$setStoreServicosAgendados(dadosAgendadosStore);
 
       this.$notify({
         title: 'Novo agendamento',
@@ -134,7 +148,6 @@ export default {
     },
 
     getWeekDayName(date){
-      console.log(date, "tm")
       let timestamp = new Date(date)
       const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
       const nomeDia = diasSemana[timestamp.getDay()];

@@ -52,36 +52,24 @@ import Mixin from '../../core/Mixin';
 export default {
     mixins: [Mixin],
     data: function () {
-        return {
+      return {
         items: [],
         fields: [],
-      
-
-        }
+      }
     },
 
-    mounted() {
-      this.$setStoreServicosAgendados(
-        [
-          { data: "01/05/2023 - 09:30", servico: 'Corte', profissional:'Carlos Maia', concluido: 'Não' },
-          { data: "23/04/2023 - 09:30", servico: 'Corte', profissional:'Carlos Maia',  concluido: 'Sim' },
-        ]
-      );
-      
+    mounted() { 
       this.carregarItemsTabelaAgendamentos();
       this.carregarFieldsTabelaAgendamentos();
     },
 
     methods: {
       carregarItemsTabelaAgendamentos(){
-        console.log(this.$store.getters.getPropriedades)
+        // Criar get para API de campos e itens da tabela
         this.items = this.$store.getters.getPropriedades.servicosAgendados;
-
-        console.log(this.items)
       },
 
-       carregarFieldsTabelaAgendamentos(){
-
+      carregarFieldsTabelaAgendamentos(){
         this.fields = [
           {
             key: 'data',
@@ -89,22 +77,22 @@ export default {
             label: 'Data agendada',
           },
           {
-            key: 'servico',
+            key: 'servico.nome',
             sortable: false,
             label: 'Serviço',
           },
           {
             key: 'profissional',
-            label: 'Profissional responsável',
+            label: 'Profissional',
             sortable: true,
             // variant: 'danger'
           },
-          {
-            key: 'concluido',
-            label: 'Concluído',
-            sortable: true,
-            // variant: 'danger'
-          },
+          // {
+          //   key: 'concluido',
+          //   label: 'Concluído',
+          //   sortable: true,
+          //   // variant: 'danger'
+          // },
           
           // menu de acoes
           { key: 'actions', label: '' }

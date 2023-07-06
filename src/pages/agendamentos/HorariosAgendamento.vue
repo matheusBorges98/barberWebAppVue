@@ -3,12 +3,12 @@
     <vue-cal
         @cell-click="cellClick"
         small
-        active-view="day"
+        active-view="week"
         locale="pt-br"
         :time-from="8 * 60"
         :time-to="20.30 * 60"
         :time-step="30"
-        :disable-views="['years', 'year', 'month', 'week']"
+        :disable-views="['years', 'year', 'month']"
         :events="events"
         :cellClickHold="false"
         :on-event-click="eventClick"
@@ -31,11 +31,11 @@ export default {
       events: [
         {
           id:"teste",
-          start: '2023-04-24 10:30',
-          end: '2023-04-24 11:00',
+          start: '2023-06-26 10:30',
+          end: '2023-06-26 11:00',
           // start: new Date(),
           // end: new Date(),
-          title: 'Corte degradê',
+          title: 'Barba c/ Toalha quente',
           // content: '<i class="icon material-icons">shopping_cart</i>',
           class: 'leisure',
           servico:{
@@ -63,9 +63,9 @@ export default {
   },
   methods: {
     cellClick(item) {
-      console.log(this.teste)
-      this.teste = "teste2"
-      console.log(item)
+      // console.log(this.teste);
+      // this.teste = "teste2"
+
       // this.events.push({
       //   start: '2023-02-13 14:30',
       //   end: '2023-02-13 15:00',
@@ -74,9 +74,17 @@ export default {
       //   class: 'sport',
       //
       // })
-
+      console.log(item, "item")
+      const horaFormatada = this.arredondarTimestampParaBaixo(item);
       if(this.$route.params && this.$route.params.servico){
-        return this.$router.push({name: 'Cadastro Agendamento', params: {servico:this.$route.params.servico, horario: this.arredondarTimestampParaBaixo(item)}}).catch((e) => {
+        return this.$router.push(
+          {
+            name: 'Cadastro Agendamento', 
+            params: {
+              servico:this.$route.params.servico, 
+              horario: horaFormatada
+            }
+          }).catch((e) => {
           console.error(e)
         })
       }else{
@@ -88,11 +96,26 @@ export default {
     },
 
     arredondarTimestampParaBaixo(timestamp) {
-      const d = new Date(timestamp);
-      const minutos = d.getMinutes();
-      const minutosArredondados = Math.floor(minutos / 30) * 30;
-      d.setMinutes(minutosArredondados, 0, 0);
-      return d.getTime();
+     
+        const dt = new Date(timestamp);
+
+  // Verificar se os minutos são exatamente 30 ou 0
+  const minutes = dt.getMinutes();
+  if (minutes === 30 || minutes === 0) {
+    // Hora exata, não é necessário arredondar
+    const hours = String(dt.getHours()).padStart(2, '0');
+    const formattedMinutes = String(dt.getMinutes()).padStart(2, '0');
+    return `${hours}:${formattedMinutes}`;
+  } else {
+    // Arredondar para baixo para o intervalo de 30 minutos
+    const roundedMinutes = Math.floor(minutes / 30) * 30;
+    dt.setMinutes(roundedMinutes, 0, 0);
+
+    const hours = String(dt.getHours()).padStart(2, '0');
+    const formattedMinutes = String(dt.getMinutes()).padStart(2, '0');
+    console.log(`${hours}:${formattedMinutes}`)
+    return `${hours}:${formattedMinutes}`;
+  }
     },
 
     eventClick(evento){
@@ -107,12 +130,34 @@ export default {
 </script>
 
 <style lang="scss">
+.vuecal__event-title{
+  font-size: 15px;
+  cursor: pointer;
+}
+.vuecal__event-time{
+    // font-size: 15px
+    display: none;
+}
+
+.vuecal__no-event {
+    /* padding-top: 1em; */
+    color: #aaa;
+    justify-self: flex-start;
+    margin-bottom: auto;
+    font-size: 15px;
+    display: none;
+}
+
 .vuecal__cell{
   font-size:12px !important;
 }
 
-//Exibe ou não seletor do tipo de visão do calendario
-.vuecal__menu{
-  display:none !important;
+.vuecal__event .leisure{
+  vertical-align: middle;
 }
+
+//Exibe ou não seletor do tipo de visão do calendario
+// .vuecal__menu{
+//   display:none !important;
+// }
 </style>

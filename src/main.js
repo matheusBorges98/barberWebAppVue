@@ -15,6 +15,7 @@ import Notifications from 'vue-notification'
 //defined as global component
 Vue.component('font-awesome-icon', require('vue-fontawesome-icon/VueFontawesome.vue').default);
 
+// import axios from "axios";
 import CustomInput from './components/CustomInput'
 import Navbar from './components/Navbar'
 import Button from './components/Button'
@@ -36,6 +37,7 @@ Vue.component('Card', Card)
 Vue.component('Navbar', Navbar)
 Vue.component('Button', Button)
 Vue.use(BootstrapVue)
+// Vue.use(axios)
 Vue.use(BootstrapVueIcons)
 Vue.component('vue-navigation-bar', VueNavigationBar);
 

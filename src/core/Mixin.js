@@ -35,6 +35,10 @@ const mixin = {
         $setStoreServicosAgendados(data){
             this.$store.commit(`setPropriedades`, {servicosAgendados : data});        
         },
+
+        $setStoreServico(data){
+            this.$store.commit(`setPropriedades`, {servico : data});        
+        }
     },
 
 
