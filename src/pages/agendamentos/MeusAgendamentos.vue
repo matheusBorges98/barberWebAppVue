@@ -9,6 +9,80 @@
       containerSlotStyle="top: 0; position: relative;"
       containerSlotClass="text-center"
     >
+  <!-- A FAZER
+    Fazer o servico pegar o proximoServico pela data mais proxima da data atual.
+    Evoluir visual
+    utilizar API
+   -->
+    <b-col
+      cols="12"
+      style="height:20vh; background-color:white"
+      v-if="proximoAgendamento && proximoAgendamento.servico"
+    >
+      <b-row>
+        <b-col
+            xl="12"
+            lg="12"
+            md="12"
+            sm="12"
+            class="mt-1"
+        >
+          <b-row align-v="center" class="m-1 p-3 service-container">
+            <b-col sm="2" class="p-1">
+              <b-img height="100px" width="100px" :src="proximoAgendamento.servico.imgUrl" rounded="circle"
+                     alt="Circle image"></b-img>
+            </b-col>
+
+            <b-col sm="10">
+
+              <b-col sm="12">
+                <b-col
+                    sm="12"
+                    class="text-start information-container"
+                >
+                  <h5 class="service-name">{{ proximoAgendamento.servico.nome }}</h5>
+
+                </b-col>
+                <b-col
+                    sm="12"
+                    class="text-start information-container"
+                >
+                  <p class="service-description">{{ proximoAgendamento.servico.descricao }} </p>
+                </b-col>
+                <b-col
+                    sm="12"
+                    class="text-start information-container"
+                >
+                  <b-row>
+                    <b-col sm="4">
+                      <h6 class="service-details">{{ proximoAgendamento.servico.duracao }} minutos |
+                          {{humanizarDateString(proximoAgendamento.data)}}
+                        <b-icon icon="clock-fill"></b-icon>
+                      </h6>
+                    </b-col>
+                    <b-col sm="4">
+                      <h6 class="service-details">R${{ proximoAgendamento.servico.valor }} </h6>
+                    </b-col>
+                     <b-col sm="4">
+                      <h6 class="service-details">Responsável: <b> {{ proximoAgendamento.profissional }} </b> </h6>
+                    </b-col>
+                    <!-- <b-col class="mt-5" sm="12">
+                      <h5 class="service-date-humanized">Horário agendado:
+                        {{humanizarDateString(proximoAgendamento.data)}} <b-icon icon="clock-fill"></b-icon></h5>
+                    </b-col> -->
+                  </b-row>
+
+                </b-col>
+
+              </b-col>
+            </b-col>
+          </b-row>
+        </b-col>
+
+      </b-row>
+
+    </b-col>
+
     <b-col class="pt-3">
       <b-table 
         striped 
@@ -55,18 +129,29 @@ export default {
       return {
         items: [],
         fields: [],
+        proximoAgendamento : {}
       }
     },
 
     mounted() { 
       this.carregarItemsTabelaAgendamentos();
       this.carregarFieldsTabelaAgendamentos();
+      this.carregarProximoServicoAgendado();
     },
 
     methods: {
       carregarItemsTabelaAgendamentos(){
         // Criar get para API de campos e itens da tabela
         this.items = this.$store.getters.getPropriedades.servicosAgendados;
+      },
+
+      carregarProximoServicoAgendado(){
+        if(this.items && this.items.length > 0){
+          this.proximoAgendamento = this.items[0];
+        };
+        // TO DO:
+          // Pegar servico pela data mais proxima da data atual.
+        console.log("proximoAgendamento", this.proximoAgendamento)
       },
 
       carregarFieldsTabelaAgendamentos(){
