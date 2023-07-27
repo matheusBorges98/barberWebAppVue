@@ -54,9 +54,9 @@
                     <b-col sm="6">
                       <h6 class="service-details">R${{ servico.valor }} </h6>
                     </b-col>
-                    <b-col class="mt-5" sm="12">
+                    <b-col sm="12">
                       <h5 class="service-date-humanized">Horário agendado:
-                        {{dataFormatada}} <b-icon icon="clock-fill"></b-icon></h5>
+                        {{this.humanizarTimestamp(horarioAgendamento)}} <b-icon icon="clock-fill"></b-icon></h5>
                     </b-col>
                   </b-row>
 
@@ -104,12 +104,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.teste)
     console.log(this.$route.params)
     this.servico = this.$route.params.servico;
     this.horarioAgendamento = this.$route.params.horario;
 
-    this.humanizedDateString(this.horarioAgendamento);
+    // this.humanizedDateString(this.horarioAgendamento);
   },
 
   methods:{
@@ -136,7 +135,7 @@ export default {
       this.$notify({
         title: 'Novo agendamento',
         text: `
-                <p>O seu agendamento foi confirmado para <b> ${this.getWeekDayName(this.horarioAgendamento)}</b>.</p>
+                <p>O seu agendamento foi confirmado para <b> ${this.humanizarTimestamp(this.horarioAgendamento)}</b>.</p>
                 <b> ${ this.dataFormatada }</b>
         `,
         duration:5000
@@ -147,21 +146,21 @@ export default {
       })
     },
 
-    getWeekDayName(date){
-      let timestamp = new Date(date)
-      const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-      const nomeDia = diasSemana[timestamp.getDay()];
+    // getWeekDayName(date){
+    //   let timestamp = new Date(date)
+    //   const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    //   const nomeDia = diasSemana[timestamp.getDay()];
 
-      return nomeDia;
-    },
+    //   return nomeDia;
+    // },
 
-    humanizedDateString(dateString){
-      const nDate = new Date(dateString);
-      const diaMesAno = nDate.toLocaleDateString();
-      const hora = nDate.toLocaleTimeString();
+    // humanizedDateString(dateString){
+    //   const nDate = new Date(dateString);
+    //   const diaMesAno = nDate.toLocaleDateString();
+    //   const hora = nDate.toLocaleTimeString();
 
-      this.dataFormatada = `${diaMesAno} - ${hora}`;
-    },
+    //   this.dataFormatada = `${diaMesAno} - ${hora}`;
+    // },
 
     voltar(){
       this.$router.go(-1);

@@ -110,8 +110,8 @@ div.jsoneditor-menu a.jsoneditor-poweredBy {
 .container{
   /* width: 75vw;
   height:90vh;
-  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 19%, rgb(232, 232, 232) 78%);
-  border-bottom-left-radius: 185px;
+  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 19%, rgb(232, 232, 232) 78%); */
+  /* border-bottom-left-radius: 185px;
   border-bottom-right-radius: 100px;
   border-top-right-radius: 185px; */
 }
@@ -132,10 +132,10 @@ div.jsoneditor-menu a.jsoneditor-poweredBy {
   background-color: white;
   background-image: url('../../assets/service-background.svg');
   background-size: cover;
-  /*border-radius: 20px;*/
-  /*border-top-right-radius: 30px;*/
-  /*border-bottom-right-radius: 0px;*/
-  /*border-bottom-left-radius: 30px;*/
+  border-radius: 10px;
+  /* border-top-right-radius: 10px; */
+  /* border-bottom-right-radius: 10px; */
+  /* border-bottom-left-radius: 10px; */
   border-bottom:lightgray 1px solid;
   /*font-weight: 400;*/
   /*transition: font-weight 1s ease-out 500ms;*/
@@ -143,6 +143,7 @@ div.jsoneditor-menu a.jsoneditor-poweredBy {
   
   /* width: 30vw !important; */
   height: 20vh !important;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
 
 .service-container:hover{

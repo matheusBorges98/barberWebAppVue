@@ -56,7 +56,7 @@
                   <b-row>
                     <b-col sm="4">
                       <h6 class="service-details">{{ proximoAgendamento.servico.duracao }} minutos |
-                          {{humanizarDateString(proximoAgendamento.data)}}
+                          {{humanizarTimestamp(proximoAgendamento.data)}}
                         <b-icon icon="clock-fill"></b-icon>
                       </h6>
                     </b-col>
@@ -160,6 +160,7 @@ export default {
             key: 'data',
             sortable: true,
             label: 'Data agendada',
+            formatter: this.humanizarTimestamp
           },
           {
             key: 'servico.nome',

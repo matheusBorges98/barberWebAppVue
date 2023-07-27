@@ -105,9 +105,16 @@ export default {
     selected(servico) {
       console.log(servico)
       if(this.$route.params && this.$route.params.horario){
-        return this.$router.push({name: 'Cadastro Agendamento', params: {servico, horario:this.$route.params.horario}}).catch((e) => {
+        return this.$router.push(
+          {
+            name: 'Cadastro Agendamento', 
+            params: {
+              servico,
+              horario:this.$route.params.horario
+            }
+          }).catch((e) => {
           console.error(e)
-        })
+        });
       }else{
         return this.$router.push({name: 'Horarios Agendamentos', params: {servico}}).catch((e) => {
           console.error(e)
@@ -191,7 +198,6 @@ export default {
 .main-container {
   background-color: #fff;
   color: #373737;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
   padding: 30px;
   cursor: pointer;
 }
@@ -220,6 +226,13 @@ export default {
   /*transition: font-weight 1s ease-out 500ms;*/
   transition: transform .2s;
   /* max-height: 15vh; */
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+  /* box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1); */
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px; */
+  /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset; */
+  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
 
 .service-container:hover{
