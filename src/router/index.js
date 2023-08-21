@@ -73,6 +73,16 @@ const routes = [
         },
         component: () => import('../pages/agendamentos/MeusAgendamentos'),
     },
+
+    {
+        path: '/prestadores',
+        name: 'Prestadores',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/agendamentos/SelecaoPrestadorServico'),
+    },
 ]
 
 const router = new VueRouter({

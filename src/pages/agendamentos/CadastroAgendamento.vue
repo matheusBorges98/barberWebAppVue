@@ -5,13 +5,14 @@
         colMD="12"
         colLG="12"
         colXL="12"
-        containerSlotStyle="top: 0; position: relative;"
+
         containerSlotClass="text-center"
         titulo="Novo agendamento"
         subtitulo="Confirme o horário e serviço agendado."
     >
 
       <b-row>
+        
         <b-col
             xl="12"
             lg="12"
@@ -54,10 +55,19 @@
                     <b-col sm="6">
                       <h6 class="service-details">R${{ servico.valor }} </h6>
                     </b-col>
-                    <b-col sm="12">
+                     <b-col sm="12">
                       <h5 class="service-date-humanized">Horário agendado:
                         {{this.humanizarTimestamp(horarioAgendamento)}} <b-icon icon="clock-fill"></b-icon></h5>
                     </b-col>
+                  </b-row>
+
+                  
+
+                  <b-row>
+                    <b-col sm="12">
+                          <h5 class="service-date-humanized">Profissional:
+                        {{prestador.nome}} <b-icon icon="clock-fill"></b-icon></h5>
+                      </b-col>
                   </b-row>
 
                 </b-col>
@@ -65,9 +75,42 @@
               </b-col>
             </b-col>
           </b-row>
-        </b-col>
+          <!-- <b-col
+            xl="6"
+            lg="6"
+            md="12"
+            sm="12"
+            class="mt-1"
+          > -->
+            <!-- <b-row align-v="center" class="m-1 p-3 service-container"> -->
+              <!-- <b-col sm="2" class="p-1">
+                <b-img height="100px" width="100px" :src="prestador.imgUrl" rounded="circle"
+                      alt="Circle image"></b-img>
+              </b-col> 
 
-        <b-col cols="12" style="margin-top:5vh">
+              <b-col sm="10">
+
+                <b-col sm="12">
+                  <b-col
+                      sm="12"
+                      class="text-start information-container"
+                  >
+                    <h5 class="service-name">{{ prestador.nome }}</h5>
+
+                  </b-col>
+              </b-col>
+              </b-col> -->
+            <!-- </b-row> -->
+          </b-col>
+          
+        <!-- </b-col> -->
+        
+        
+      </b-row>
+
+      <b-row>
+
+        <b-col cols="12" class="mt-3">
           <b-row class="text-center" style="align-content: space-between;">
             <b-col cols="12">
               <b-button variant="outline-primary" class="col-12" v-on:click="enviarAgendamento()">
@@ -87,6 +130,45 @@
         </b-col>
       </b-row>
     </Card>
+
+    <!-- <b-col
+      cols="12"
+      style="height:20vh; background-color:white"
+      v-if="prestador && prestador.nome"
+    >
+     <b-row>
+        <b-col
+            xl="12"
+            lg="12"
+            md="12"
+            sm="12"
+            class="mt-1"
+        >
+          <b-row align-v="center" class="m-1 p-3 service-container">
+              <b-col sm="2" class="p-1">
+                <b-img height="100px" width="100px" :src="prestador.imgUrl" rounded="circle"
+                      alt="Circle image"></b-img>
+              </b-col> 
+
+              <b-col sm="10">
+
+                <b-col sm="12">
+                  <b-col
+                      sm="12"
+                      class="text-start information-container"
+                  >
+                    <h5 class="service-name">{{ prestador.nome }}</h5>
+
+                  </b-col>
+              </b-col>
+              </b-col>
+            </b-row>
+        </b-col>
+      
+
+      </b-row> 
+
+    </b-col> -->
   </div>
 </template>
 
@@ -100,14 +182,16 @@ export default {
     return{
       servico:{},
       horarioAgendamento:"",
+      prestador:{},
       dataFormatada:""
     }
   },
   mounted() {
-    console.log(this.$route.params)
+    console.log(this.$route.params, "Cadastro agendamento")
     this.servico = this.$route.params.servico;
     this.horarioAgendamento = this.$route.params.horario;
-
+    this.prestador = this.$route.params.prestador;
+  
     // this.humanizedDateString(this.horarioAgendamento);
   },
 
@@ -119,7 +203,7 @@ export default {
         data: this.horarioAgendamento,
         usuario: {},
         empresa: "id_empresa",
-        profissional:'Carlos Maia',
+        prestador: this.prestador,
         concluido: false
       }
 
@@ -170,9 +254,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.service-container{
+  height: 100%;
+}
+
 @media (max-width: 992px){
   .service-container {
-    min-height: 50vh;
+    min-height: 65vh;
   }
 }
 

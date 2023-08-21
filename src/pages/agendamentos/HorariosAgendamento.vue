@@ -62,12 +62,13 @@ export default {
   },
   mounted() {
     // console.log(this.$route.params)
+    console.log(this.$route.params, "Horarios agendamento")
     this.carregarItemsTabelaAgendamentos();
   },
   methods: {
     carregarItemsTabelaAgendamentos(){
       // Criar get para API de campos e itens da tabela
-      let items = this.$store.getters.getPropriedades.servicosAgendados;
+      let items = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
 
       for(let item of items){
         this.events.push(
@@ -121,9 +122,10 @@ export default {
           {
             name: 'Cadastro Agendamento', 
             params: {
+              ...this.$route.params,
               servico:this.$route.params.servico, 
               horario: horaFormatada,
-              data: ""
+              data: "",
             }
           }).catch((e) => {
           console.error(e)

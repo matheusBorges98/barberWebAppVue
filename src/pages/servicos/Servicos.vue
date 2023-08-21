@@ -86,15 +86,33 @@
 export default {
   data: function () {
     return {
-      servicos: []
+      servicos: [],
 
     }
   },
   mounted() {
+    console.log(this.$route.params, "Servicos")
+    this.verificaProfissionalSelecionado();
     this.getServices();
   },
 
   methods: {
+
+    verificaProfissionalSelecionado() {
+      if(this && this.$route && !this.$route.params.prestador){
+        this.$router.push(
+          {
+            name: 'Prestadores', 
+            params: {
+              ...this.$route.params
+              // horario:this.$route.params?.horario ?? ""
+            }
+          }).catch((e) => {
+          console.error(e)
+        });
+      }
+
+    },
 
     newService() {
       return this.$router.push({name: 'cadastroServico'}).catch((e) => {
@@ -110,13 +128,14 @@ export default {
             name: 'Cadastro Agendamento', 
             params: {
               servico,
-              horario:this.$route.params.horario
+              horario:this.$route.params.horario,
+              ...this.$route.params
             }
           }).catch((e) => {
           console.error(e)
         });
       }else{
-        return this.$router.push({name: 'Horarios Agendamentos', params: {servico}}).catch((e) => {
+        return this.$router.push({name: 'Horarios Agendamentos', params: {...this.$route.params, servico}}).catch((e) => {
           console.error(e)
         })
       }
