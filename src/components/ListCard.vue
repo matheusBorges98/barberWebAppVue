@@ -1,22 +1,30 @@
 <template>
     <div>
-        <b-row  style="background-color:grey" class="m-1" v-for="(item, index) in chaveValorArray" :key="index">
+        <b-col  @click="selected(item)" style="background-color:grey" class="m-1" v-for="(item, index) in chaveValorArray" :key="index">
             
             <ListCard
                 v-if="!Array.isArray(item)"
                 :itens="item"
             />
 
-            <!-- {{item[index]}} -->
-            <b-col v-else style="background-color:red" lg="2" class="m-1" v-for="(subitem, index) in item" :key="index" >
+            <!-- <b-col v-else style="background-color:red" lg="2" class="m-1" v-for="(subitem, index) in item" :key="index" >
                 {{subitem.label}} - {{subitem.valor}}
 
+            </b-col> -->
+
+            <b-col
+                xl="4"
+                lg="6"
+                md="12"
+                sm="12"
+                v-else
+                v-for="(subitem, index) in item"
+                :key="index"
+                class="container"
+            >
+                 {{subitem.label}} - {{subitem.valor}}  
             </b-col>
-            <!-- <b-col style="background-color:red" lg="2" class="m-1" v-for="(subitem, index) in item" :key="index" >
-                {{subitem}}
-            </b-col>
-             -->
-        </b-row>
+        </b-col>
     </div>
 </template>
 
@@ -39,6 +47,21 @@ export default {
   },
 
   methods:{
+
+    selected(item) {
+      console.log(item, "selected")
+      console.log("Lista convertida", this.converterListaChaveValorParaJson(item));
+    },
+
+    converterListaChaveValorParaJson(lista){
+        let json = {};
+
+        for(let item of lista ){
+            json[item.label] = item.valor
+        };
+
+        return json;
+    },
   
      
     determinarTipo(valor) {
@@ -104,5 +127,81 @@ export default {
 </script>
 
 <style>
+@media (max-width: 992px){
+  .service-container {
+    min-height: 35vh;
+  }
+}
 
+
+.main-container {
+  background-color: #fff;
+  color: #373737;
+  padding: 30px;
+  cursor: pointer;
+}
+
+.container {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+/*.information-container{}*/
+
+/*.information-container :hover {*/
+/*  transform: rotate(360deg);*/
+/*}*/
+
+.service-container {
+  background-color: white;
+  /* background-image: url('../../assets/service-background.svg'); */
+  background-size: cover;
+  /*border-radius: 20px;*/
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom:lightgray 1px solid;
+  /*font-weight: 400;*/
+  /*transition: font-weight 1s ease-out 500ms;*/
+  transition: transform .2s;
+  /* max-height: 15vh; */
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+  /* box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1); */
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px; */
+  /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset; */
+  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.service-container:hover{
+  transform: scale(1.08);
+  /*border-bottom: rgb(31, 37, 42) 2px solid;*/
+
+}
+
+.service-name {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.service-description {
+  font-size: 14px;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.service-details {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.no-services-found {
+  font-size: 21px;
+  color: #6b6e6b !important;
+}
+
+.help-new-service {
+  cursor: pointer;
+}
 </style>
