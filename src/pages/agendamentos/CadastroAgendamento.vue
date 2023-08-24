@@ -67,7 +67,7 @@
                     class="text-start information-container"
                 >
                   <b-row>
-                    <ListCard
+                    <ListaCamposPersonalizados
                       :itens="montarCamposPersonalizados()"
                       :esconderChaves="['id']"
                       tagTexto="h6"
