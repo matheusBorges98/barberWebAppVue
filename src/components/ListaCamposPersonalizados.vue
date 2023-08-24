@@ -1,38 +1,32 @@
 <template>
-    <div>
-        <b-col  @click="selected(item)" style="background-color:grey" class="m-1" v-for="(item, index) in chaveValorArray" :key="index">
+    <div style="display:contents">
+        <b-col @click="selected(item)" v-for="(item, index) in chaveValorArray" :key="index">
             
-            <ListCard
+            <ListaCamposPersonalizados
                 v-if="!Array.isArray(item)"
                 :itens="item"
             />
 
-            <!-- <b-col v-else style="background-color:red" lg="2" class="m-1" v-for="(subitem, index) in item" :key="index" >
-                {{subitem.label}} - {{subitem.valor}}
-
-            </b-col> -->
-
             <b-col
-                xl="4"
-                lg="6"
-                md="12"
-                sm="12"
                 v-else
                 v-for="(subitem, index) in item"
                 :key="index"
                 class="container"
             >
-                 {{subitem.label}} - {{subitem.valor}}  
+                <b-col
+                    v-if="subitem.visivel"
+                >   
+                   <component :is="tagTexto"> {{ subitem.label }} : {{ subitem.valor }} </component>
+
+                 </b-col>
             </b-col>
         </b-col>
     </div>
 </template>
 
 <script>
-// import Mixin from '../../core/Mixin';
 
 export default {
-//   mixins: [Mixin],
   data: function (){
     return{
       estrutura:[],
@@ -41,12 +35,23 @@ export default {
   },
 
   mounted(){
-    // this.montarEstruturaItens(this.itens);
     this.criarChaveValorArray();
-    console.log("mountou")
   },
 
   methods:{
+
+    verificarSeMostraChave(chave){
+
+        const chaveEncontrada = this.esconderChaves.find((key) => {
+            return key === chave;
+        });
+
+        if (chaveEncontrada) {
+            return false;
+        } else {
+            return true;
+        }
+    },
 
     selected(item) {
       console.log(item, "selected")
@@ -74,34 +79,40 @@ export default {
         }
     },
 
-    montarEstruturaItens(objeto) {
+    montarEstruturaItens(objeto, chavePai = null) {
         const chaveValorArray = [];
 
         for (const chave in objeto) {
             if (objeto.hasOwnProperty(chave)) {
                 const valor = objeto[chave];
                 const tipo = this.determinarTipo(valor);
+                
+                const chaveCompleta = chavePai ? `${chavePai}.${chave}` : chave;
+                const visivel = this.verificarSeMostraChave(chaveCompleta);
 
-                if (typeof valor === 'object') {
-                    const subArray = this.montarEstruturaItens(valor);
+                if (Array.isArray(valor)) {
+                    const subArray = this.montarEstruturaItens(valor, chaveCompleta);
+                    chaveValorArray.push(...subArray);
+                } else if (typeof valor === 'object') {
+                    const subArray = this.montarEstruturaItens(valor, chaveCompleta);
                     chaveValorArray.push(...subArray);
                 } else {
                     const novoObjeto = {
                         label: chave,
                         valor: valor,
-                        tipo: tipo
+                        tipo: tipo,
+                        visivel: visivel
                     };
                     chaveValorArray.push(novoObjeto);
                 }
             }
         }
 
-        // console.log(chaveValorArray, "estrutura");
         this.estrutura = chaveValorArray;
 
         return chaveValorArray;
     },
-
+    
     criarChaveValorArray() {
       const resultado = [];
 
@@ -111,8 +122,6 @@ export default {
       }
 
       this.chaveValorArray = resultado;
-
-      console.log(this.chaveValorArray, "ESTRUTURA")
     }
 },
 
@@ -122,6 +131,17 @@ export default {
             required: true,
             default:[]
         },
+
+        esconderChaves: {
+            type: Array,
+            required: false,
+            default:[]
+        },
+        tagTexto:{
+            type: String,
+            required: false,
+            default:"h6"
+        }
     },
 }
 </script>

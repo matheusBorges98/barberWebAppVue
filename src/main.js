@@ -20,7 +20,7 @@ import CustomInput from './components/CustomInput'
 import Navbar from './components/Navbar'
 import Button from './components/Button'
 import Card from './components/Card'
-import ListCard from './components/ListCard'
+import ListaCamposPersonalizados from './components/ListaCamposPersonalizados'
 import VueFlip from 'vue-flip'
 import VueNavigationBar from 'vue-navigation-bar';
 import './app.scss'
@@ -35,7 +35,7 @@ Vue.component('vue-flip', VueFlip)
 Vue.use(Notifications);
 Vue.component('CustomInput', CustomInput)
 Vue.component('Card', Card)
-Vue.component('ListCard', ListCard)
+Vue.component('ListaCamposPersonalizados', ListaCamposPersonalizados)
 Vue.component('Navbar', Navbar)
 Vue.component('Button', Button)
 Vue.use(BootstrapVue)
