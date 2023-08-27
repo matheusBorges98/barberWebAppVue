@@ -1,18 +1,31 @@
 <template>
   <div>
     <vue-cal
-        @cell-click="cellClick"
-        small
-        active-view="week"
-        locale="pt-br"
-        :time-from="8 * 60"
-        :time-to="20.30 * 60"
-        :time-step="30"
-        :disable-views="['years', 'year', 'month']"
-        :events="events"
-        :cellClickHold="false"
-        :on-event-click="eventClick"
-    />
+      class="vuecal--green-theme"
+      @cell-click="cellClick"
+      small
+      :active-view=" this.isMobile() ? 'day' : 'day'"
+      locale="pt-br"
+      :time-from="8 * 60"
+      :time-to="20.30 * 60"
+      :time-step="30"
+      :disable-views="['years', 'year', 'month']"
+      :events="events"
+      :cellClickHold="false"
+      :on-event-click="eventClick"
+      show-time-in-cells
+      today-button
+      events-count-on-year-view
+      :minDate="new Date()"
+      :time-cell-height="60"
+      :split-days="customDaySplitLabels"
+      sticky-split-labels
+    >
+      <template #split-label="{ split }">
+        <strong :style="`color: ${split.color}`">{{ split.label }}</strong>
+      </template>
+
+    </vue-cal>
   </div>
 </template>
 
@@ -30,6 +43,14 @@ export default {
       detalhesEvento:{},
       agendamentos: [],
       servicoSelecionado: this.$route.params,
+      //Deve pegar do banco o id baseado nos prestadores. apenas Visao gerencial verá isso
+      customDaySplitLabels: this.isAdmin() ? [
+        { label: 'João', color: 'blue', class: 'split1', id:1},
+        { label: 'Carlos', color: 'green', class: 'split2', id:2 },
+        { label: 'Jeferson', color: 'orange', class: 'split3', id:3 },
+        { label: 'Joaquim', color: 'red', class: 'split4', id:4 }
+      ] : [],
+
       events: [
         // {
         //   id:"teste",
@@ -64,6 +85,7 @@ export default {
     // console.log(this.$route.params)
     console.log(this.$route.params, "Horarios agendamento")
     this.carregarItemsTabelaAgendamentos();
+    console.log(this.isMobile());
   },
   methods: {
     carregarItemsTabelaAgendamentos(){
@@ -71,6 +93,7 @@ export default {
       let items = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
 
       for(let item of items){
+        console.log(item, "item")
         this.events.push(
           {
             id: `${item.data}${item.empresa}`,
@@ -79,8 +102,9 @@ export default {
             // start: new Date(),
             // end: new Date(),
             title: item.servico.nome,
+            split:item.prestador.id,
             // content: '<i class="icon material-icons">shopping_cart</i>',
-            class: 'leisure',
+            class: 'closed',
             servico:{
               ...item.servico
             }
@@ -115,27 +139,45 @@ export default {
     },
 
     cellClick(item) {
-      const horaFormatada = this.arredondarTimestampParaBaixo(item);
-
-      if(this.$route.params && this.$route.params.servico){
-        return this.$router.push(
-          {
-            name: 'Cadastro Agendamento', 
-            params: {
-              ...this.$route.params,
-              servico:this.$route.params.servico, 
-              horario: horaFormatada,
-              data: "",
-            }
-          }).catch((e) => {
-          console.error(e)
-        })
-      }else{
-        return this.$router.push({name: 'Servicos', params: {horario: horaFormatada}}).catch((e) => {
-          console.error(e)
-        })
+      const horaFormatada = this.arredondarTimestampParaBaixo(item.date);
+      const horarioSelecionado = new Date(horaFormatada);
+      const dataAtual = new Date();
+      console.log(item)
+      if (horarioSelecionado > dataAtual) {
+        if (this.$route.params && this.$route.params.servico) {
+          return this.$router
+            .push({
+              name: 'Cadastro Agendamento',
+              params: {
+                ...this.$route.params,
+                servico: this.$route.params.servico,
+                horario: horaFormatada,
+                split:1,
+                data: '',
+              },
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        } else {
+          return this.$router
+            .push({
+              name: 'Servicos',
+              params: { horario: horaFormatada },
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        }
+      } else {
+        this.$notify({
+          title: 'Não é possível selecionar este horário',
+          text: `
+                  <p>O horário selecionado é menor que a data atual.</p>
+          `,
+          duration:5000
+        });
       }
-
     },
 
     eventClick(evento){
@@ -150,29 +192,48 @@ export default {
 </script>
 
 <style lang="scss">
+.vuecal .day-split-header {font-size: 11px;}
+.vuecal__body .split1 {background-color: rgba(226, 242, 253, 0.7);}
+.vuecal__body .split2 {background-color: rgba(232, 245, 233, 0.7);}
+.vuecal__body .split3 {background-color: rgba(255, 243, 224, 0.7);}
+.vuecal__body .split4 {background-color: rgba(255, 235, 238, 0.7);}
+.vuecal__no-event {display: none;}
+
+.vuecal__cell--disabled {text-decoration: line-through;}
+.vuecal__cell--before-min {color: #b6d6c7;}
+.vuecal__cell--after-max {color: #008b8b;}
+
+.closed{
+  // border: 2px solid green;
+  background-color: #e4f5ef;
+  border: 1px solid #8787873a;
+}
+
+
 .vuecal__event-title{
   font-size: 15px;
   cursor: pointer;
 }
-.vuecal__event-time{
-    // font-size: 15px
-    display: none;
-}
+// .vuecal__event-time{
+//     // font-size: 15px
+//     display: none;
+// }
 
 .vuecal__no-event {
     /* padding-top: 1em; */
-    color: #aaa;
-    justify-self: flex-start;
+    color:#42b983;// #aaa;
+    justify-self: middle;
     margin-bottom: auto;
     font-size: 15px;
     display: none;
 }
 
 .vuecal__cell{
+  // background-color:#42b983;// #aaa;
   font-size:12px !important;
 }
 
-.vuecal__event .leisure{
+.vuecal__event .closed{
   vertical-align: middle;
 }
 

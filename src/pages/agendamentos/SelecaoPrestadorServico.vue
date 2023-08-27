@@ -106,29 +106,27 @@ export default {
 
       this.prestadores = [
         {
-          id: "a",
+          id: 1,
           imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5ebfiw-PKm2DOKadCyaqF9S0wL1yiKQLnXNLWBplte7WyZxTThumvFo0_TKEEPVZ5I_E&usqp=CAU",
           nome: "João",
         },
         {
-          id: "b",
+          id: 2,
           imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMHxhl9bfuQEodfzNbK6ceBHBcx6JGrwPsnYL_fUkvGRNqOJ_E9JCpx6DWRqw2eHPtlEY&usqp=CAU",
           nome: "Carlos",
         },
         {
-          id: "c",
+          id: 3,
           imgUrl: "https://media.licdn.com/dms/image/C4E03AQHz95m2JQ0-0w/profile-displayphoto-shrink_800_800/0/1621204890251?e=2147483647&v=beta&t=rELzXHMDy_FemRpUStCAdMxyYf0PyJs1EsZykqXJmbg",
           duracao: "40",
           nome: "Jeferson",
         },
         {
-          id: "d",
+          id: 4,
           imgUrl: "https://media.licdn.com/dms/image/D4D03AQHfLjDYSX2vjw/profile-displayphoto-shrink_800_800/0/1683801270250?e=2147483647&v=beta&t=6lxpHl-d5NH8yI0eEHAUaKhmSW7GL2RqPiY2BV__Q0w",
           nome: "Joaquim",
         },
       ];
-
-      // this.servicos = []
     }
   }
 }

@@ -6,7 +6,8 @@ export default function checkAuth(login, senha) {
 
     let usuario = {
       email     : login,
-      password  : senha
+      password  : senha,
+      base_url: "http://146.190.45.189"
     };
 
     // {email: "admin@gearhead.com.br",
@@ -14,7 +15,7 @@ export default function checkAuth(login, senha) {
 
     console.log(usuario)
 
-    axios.post(`http://localhost:8080/auth/sign_in`,
+    axios.post(`http://146.190.45.189/auth/sign_in`,
     { ...usuario }, 
     {
       headers: {

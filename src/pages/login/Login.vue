@@ -105,21 +105,23 @@ export default {
   methods: {
     async sendData() {
       console.log(this.user)
-      let autenticacao = {
-        key: "chaveapiteste"
-      };
+      // let autenticacao = {
+      //   key: "chaveapiteste"
+      // };
 
-      // const { nome, senha, estabelecimento } = this.user;
+      const { nome, senha, estabelecimento } = this.user;
       
-      // autenticacao = await Authentication(nome, senha, estabelecimento );
-      autenticacao.key != ""
-        ? this.$router.push({ name: "Home" }).catch(() => {})
-        : null;
+      let autenticacao = await Authentication(nome, senha, estabelecimento );
 
-      this.$setStoreUsuarioLogado({
-        apiKey: autenticacao.key,
-        ...this.user
-      });
+      console.log(autenticacao, "sendData")
+      // autenticacao.key != ""
+      //   ? this.$router.push({ name: "Home" }).catch(() => {})
+      //   : null;
+
+      // this.$setStoreUsuarioLogado({
+      //   apiKey: autenticacao.key,
+      //   ...this.user
+      // });
     },
 
     onChildUpdate(newValue) {

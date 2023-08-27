@@ -133,7 +133,7 @@ export default {
     montarCamposPersonalizados(){
       return [
        {
-        filial : "01",
+        profissional : this.prestador.nome,
         observacao:"Dia do noivo"
        }
       ]

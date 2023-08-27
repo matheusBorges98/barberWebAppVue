@@ -3,39 +3,39 @@ import axios from "axios";
 export default async function authentication(login, senha) {
     console.log(login, senha)
   try{
-    let isAuthenticated = false,
-        // usuario         = {
-        //     email     : login,
-        //     password  : senha
-        // }
-        usuario = {
-            email: "admin@gearhead.com.br",
-            password: "@4Gearhead2022"
-         }
+    let isAuthenticated = false;
 
-    
-    // console.log(usuario)
-      debugger
-    let response = await axios.post(`http://localhost:8080/auth/sign_in`,{ ...usuario }, 
-        {
-            headers: {
-                'Content-Type':'application/json',
-                'authkey': 'b800ee0b3027bb6732130ceba67d0438'
-            }
-    
-        }
-    )
-    if(response){
-        if(response.data && response.data.token.token){
-            isAuthenticated = true  
-        }
+    let usuario = 
+    {
+      "email": "admin@b-systems.com.br",
+      "password": "#Senha123",
+      "base_url": "http://146.190.45.189"
+   }
+    // {
+    //   email     : login,
+    //   password  : senha,
+    //   base_url: "http://146.190.45.189"
+    // };
 
-        return isAuthenticated
+    axios.post(`http://146.190.45.189/auth/sign_in?key_transform_camel_lower=true`,
+    { ...usuario }, 
+    {
+      headers: {
+        'Content-Type':'application/json',
+        'authkey': 'f4f49fd6deed76678e60'
+      }
+  
+    }).then((response) => {
+      console.log(response)
+      if(response.data && response.data.token.token){
+        isAuthenticated = true
+      }
 
-        
-    }
+      return isAuthenticated
+    });
   }catch(e){
     console.error(`Ocorreu um erro ao realizar o login: ${e}` )
   }
+
 
 }
