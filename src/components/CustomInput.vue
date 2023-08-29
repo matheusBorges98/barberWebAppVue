@@ -1,6 +1,7 @@
 <template>
     <FloatingLabel
       :config="{label: label}"
+      v-show="visible"
       >
        <b-form-input
           v-if="!isMultiselect"
@@ -8,7 +9,9 @@
           size="md"
           :v-model="vmodel"
           v-on:change="onChange"
-          :state="null"
+          :state="state"
+          :formatter="formatter"
+          :type="type"
         >
         </b-form-input>
         
@@ -49,7 +52,8 @@ export default {
   },
   data(){
     return{
-      vmodel : this.value
+      vmodel : this.value,
+      state: undefined
     } 
   },
 
@@ -87,12 +91,37 @@ export default {
       required: false,
       // default:[]
     },
+    visible: {
+      type: Boolean,
+      required: false,
+      default:true
+    },
+    formatter:{
+        type: String,
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
   },
   computed: {
     name() {
       return this.label.toLowerCase()
     },
   },
+
+  mounted(){
+    if(this.formatter){
+        try{
+            if(this.formatter()){
+                this.formatter = this.formatter;
+            }
+        }catch(_){
+            this.formatter = eval(this.formatter)
+        }
+    }
+  },
+
   methods: {
     onChange(value) {
       // Supports .lazy

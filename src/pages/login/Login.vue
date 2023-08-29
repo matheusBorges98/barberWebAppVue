@@ -32,6 +32,8 @@
           :placeholder="input.placeholder"
           :isMultiselect="input.isMultiselect"
           :multiselectOptions="input.multiselectOptions"
+          :type="input.type"
+          :formatter="input.formatter"
           v-model="input.model"
           :valid="null"
           v-on:changeValue="onChildUpdate"
@@ -40,22 +42,34 @@
       <b-col cols="12" style="margin-top: 5vh">
         <b-row class="text-center" style="align-content: space-between">
           <b-col cols="6">
-            <b-button variant="outline-primary" class="col-12" v-on:click="sendData()">
+            <b-button variant="outline-primary" class="col-12" v-on:click="enviarFormulario()">
               Criar conta
               <b-icon icon="person-plus"></b-icon>
             </b-button>
           </b-col>
            <b-col cols="6">
-            <b-button variant="outline-primary" class="col-12" v-on:click="sendData()">
+            <b-button variant="outline-primary" class="col-12" v-on:click="enviarFormulario()">
               Entrar
               <b-icon icon="arrow-bar-right"></b-icon>
             </b-button>
           </b-col>
 
-          <b-col cols="12" class="mt-4">
-            <b-button variant="outline-secondary" class="col-12" v-on:click="sendData()">
-              Esqueci minha senha
+          <b-col v-if="tipoLogin == 1" cols="12" class="mt-4">
+            <b-button variant="outline-primary" class="col-12" v-on:click="mudarTipoLogin(2)">
+              Entrar sem cadastro
               <b-icon icon="key-fill"></b-icon>
+            </b-button>
+          </b-col>
+          <b-col v-if="tipoLogin == 2" cols="12" class="mt-4">
+            <b-button variant="outline-primary" class="col-12" v-on:click="mudarTipoLogin(1)">
+              Acessar conta
+              <!-- <b-icon icon="key-fill"></b-icon> -->
+            </b-button>
+          </b-col>
+          <b-col v-if="tipoLogin == 1" cols="12" class="mt-4">
+            <b-button variant="outline-secondary" class="col-12" v-on:click="enviarFormulario()">
+              Esqueci minha senha
+              <!-- <b-icon icon="key-fill"></b-icon> -->
             </b-button>
           </b-col>
         </b-row>
@@ -76,44 +90,75 @@ export default {
   mixins: [Mixin],
   data: function () {
     return {
+      tipoLogin: 2,
       user: [],
-      inputs: [
+      inputs: [],
+    };
+  },
+  mounted(){
+    this.obterInputs(this.tipoLogin);
+  },
+  methods: {
+    mudarTipoLogin(novoModo){
+      this.tipoLogin = novoModo;
+      this.obterInputs(novoModo);
+    },
+    
+    obterInputs(modo){
+      /*
+        modo : 
+          1 : Login completo
+          2 : Login simplificado
+
+          To do: 
+            Criar requisicao que busque os inputs desta tela.
+      */
+
+     let retorno;
+     
+     if(modo == 1){
+      retorno = [
+        {
+          label: "Login",
+          model: "login",
+          placeholder: "Digite seu nome",
+        },
+        {
+          label: "Senha",
+          model: "password",
+          placeholder: "Digite sua senha",
+        },
+      ]
+     }else if(modo == 2){
+      retorno = [
         {
           label: "Nome",
           model: "name",
           placeholder: "Digite seu nome",
         },
         {
-          label: "Senha",
-          model: "pass",
-          placeholder: "Digite sua senha",
+          label: "celular",
+          model: "contact",
+          type:"number",
+          placeholder: "Digite seu celular",
         },
-        {
-          label: "Estabelecimento",
-          model: "empresa",
-          placeholder: "Procure o estabelecimento desejado",
-          isMultiselect:true,
-          multiselectOptions:[
-            // { value: "Selecione uma", text: '' },
-            { value: 'Barbearia 99', text: 'Barbearia 99' },
-            { value: 'Barbearia Norte', text: 'Barbearia Norte', },
-          ]
-        },
-      ],
-    };
-  },
-  methods: {
-    async sendData() {
+      ]
+     };
+
+     this.inputs = retorno;
+    },
+
+    async enviarFormulario() {
       console.log(this.user)
       // let autenticacao = {
       //   key: "chaveapiteste"
       // };
 
-      const { nome, senha, estabelecimento } = this.user;
-      
-      let autenticacao = await Authentication(nome, senha, estabelecimento );
+      let autenticacao = await Authentication({
+        ...this.user
+      });
 
-      console.log(autenticacao, "sendData")
+      console.log(autenticacao, "enviarFormulario")
       // autenticacao.key != ""
       //   ? this.$router.push({ name: "Home" }).catch(() => {})
       //   : null;

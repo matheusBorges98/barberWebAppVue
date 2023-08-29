@@ -5,6 +5,13 @@ import checkAuth from '../middlewares/Auth'
 
 Vue.use(VueRouter)
 
+// if(this.$route.query && this.$route.query.subdominio && this.$route.query.subdominio != ""){
+//     Vue.prototype.$subdominio = this.$route.query.subdominio
+// }else{
+//     Vue.prototype.$subdominio = "semsubdominio"
+// }
+
+
 const routes = [
     {
         path: '/',

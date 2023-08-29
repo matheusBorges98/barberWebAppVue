@@ -18,6 +18,28 @@
   </div>
 </template>
 
+<script>
+import Vue from "vue";
+export default {
+  created() { 
+
+    if(this.$route.query && this.$route.query.subdominio && this.$route.query.subdominio != ""){
+      Vue.prototype.$subdominio = this.$route.query.subdominio
+    }else{
+      Vue.prototype.$subdominio = "semsubdominio"
+    }
+
+    /*TO DO:
+      Criar requisicao que buscará o css do subdominio
+
+      - Se nao houver subdominio, irá redirecionar para selecao de subdominios.
+    */
+  },
+
+}
+</script>
+>
+
 <style lang="scss">
 #app {
   //font-family: Verdana, Geneva, sans-serif;
