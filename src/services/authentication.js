@@ -9,7 +9,7 @@ export default async function authentication(login, senha) {
     {
       "email": "admin@b-systems.com.br",
       "password": "#Senha123",
-      "base_url": "http://146.190.45.189"
+      "base_url": "http://143.198.70.219"
    }
     // {
     //   email     : login,
@@ -17,22 +17,24 @@ export default async function authentication(login, senha) {
     //   base_url: "http://146.190.45.189"
     // };
 
-    axios.post(`http://146.190.45.189/auth/sign_in?key_transform_camel_lower=true`,
-    { ...usuario }, 
+    const headers = {
+      'authkey': "f4f49fd6deed76678e60"
+    }
+    
+    axios.post(`http://143.198.70.219/auth/sign_in?key_transform_camel_lower=true`,
+    usuario, 
     {
-      headers: {
-        'Content-Type':'application/json',
-        'authkey': 'f4f49fd6deed76678e60'
-      }
-  
+      headers: headers
     }).then((response) => {
-      console.log(response)
+      console.log(response, "response")
       if(response.data && response.data.token.token){
         isAuthenticated = true
       }
 
       return isAuthenticated
-    });
+    }).catch((e)=>{
+      console.log(e)
+    })
   }catch(e){
     console.error(`Ocorreu um erro ao realizar o login: ${e}` )
   }

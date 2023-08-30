@@ -5,7 +5,7 @@
         classes="custom-notify vue-notification"
     />
     <Navbar
-        v-if="$route && $route.name != 'Login'"
+        v-if="$route && $route.name != 'Login' && $route.name != 'Estabelecimentos'"
     />
 <!--    <b-row v-if="$route && $route.name != 'Login'" class="container-route-name">-->
 <!--      <b-col class="text-center p-1">-->

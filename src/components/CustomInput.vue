@@ -16,15 +16,15 @@
         </b-form-input>
         
         <div  v-else class="p-2">
+            
         <multiselect
           class="customInput"
-         
           size="md" 
           v-model="vmodel" 
           @select="onChange"
           :options="multiselectOptions"
-          label="value" 
-          track-by="value"
+          :label="labelsMultiselect" 
+          :track-by="labelsMultiselect"
           selectLabel="Selecione"
           selectedLabel="Selecionado"
           deselectLabel="Remover seleção"
@@ -103,14 +103,23 @@ export default {
       type: String,
       default: "text",
     },
+    labelsMultiselect: {
+      type: String,
+      default: "",
+    },
+    id: {
+      type: String,
+      default: "",
+    },
   },
   computed: {
     name() {
-      return this.label.toLowerCase()
+      return this.id.toLowerCase()
     },
   },
 
   mounted(){
+    console.log(this.labelsMultiselect)
     if(this.formatter){
         try{
             if(this.formatter()){
@@ -136,8 +145,9 @@ export default {
 </script>
 <style>
 .customInput {
-  margin-top:15px;
-  padding:0
+  /* margin-top:15px; */
+  /* padding:0 */
+  /* height: 200px !important; */
 
 }
 
@@ -368,8 +378,8 @@ input[type="color"]:focus,
   }
   .multiselect__select{
       position:absolute;
-      width:40px;
-      height:38px;
+      /* width:40px; */
+      /* height:38px; */
       right:1px;
       top:1px;
       padding:4px 8px;

@@ -116,6 +116,7 @@ export default {
 
 .card {
   border-radius: 0 !important;
+  border: 0;
 }
 
 
