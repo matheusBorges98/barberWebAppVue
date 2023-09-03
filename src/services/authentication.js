@@ -1,43 +1,34 @@
-import axios from "axios";
+import api from "../http/index"
 
 export default async function authentication(login, senha) {
-    console.log(login, senha)
-  try{
+  console.log(login, senha);
+
+  try {
     let isAuthenticated = false;
 
-    let usuario = 
-    {
-      "email": "admin@b-systems.com.br",
-      "password": "#Senha123",
-      "base_url": "http://143.198.70.219"
+    const usuario =  {
+      email: "admin@b-systems.com.br",
+      password: "#Senha123",
+      base_url: "http://143.198.70.219"
    }
-    // {
-    //   email     : login,
-    //   password  : senha,
-    //   base_url: "http://146.190.45.189"
-    // };
 
-    const headers = {
-      'authkey': "f4f49fd6deed76678e60"
-    }
-    
-    axios.post(`http://143.198.70.219/auth/sign_in?key_transform_camel_lower=true`,
-    usuario, 
-    {
-      headers: headers
-    }).then((response) => {
-      console.log(response, "response")
-      if(response.data && response.data.token.token){
-        isAuthenticated = true
+    const response = await api({
+      method: 'post',
+      url:  `/auth/sign_in?key_transform_camel_lower=true`,
+      data: {
+        ...usuario
       }
+    });
+    
+    console.log(response, "response")
+    if (response && response.data.user) {
+      isAuthenticated = true;
+    }
+    console.log(isAuthenticated)
+    return isAuthenticated;
 
-      return isAuthenticated
-    }).catch((e)=>{
-      console.log(e)
-    })
-  }catch(e){
-    console.error(`Ocorreu um erro ao realizar o login: ${e}` )
+  } catch (error) {
+    console.error(`Ocorreu um erro ao realizar o login: ${error}`);
+    return false;
   }
-
-
 }

@@ -139,11 +139,12 @@ export default {
     },
 
     cellClick(item) {
-      const horaFormatada = this.arredondarTimestampParaBaixo(item.date);
+
+      const horaFormatada = this.arredondarTimestampParaBaixo(item);
       const horarioSelecionado = new Date(horaFormatada);
       const dataAtual = new Date();
-      console.log(item)
-      if (horarioSelecionado > dataAtual) {
+
+     if (horarioSelecionado > dataAtual) {
         if (this.$route.params && this.$route.params.servico) {
           return this.$router
             .push({

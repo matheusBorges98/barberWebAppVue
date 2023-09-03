@@ -1,21 +1,19 @@
-// import Vue from 'vue';
-// import VueResource from 'vue-resource'
+import axios from "axios";
 
-// Vue.use(VueResource)
+const api = axios.create({
+ baseURL: "http://143.198.70.219",
+});
 
-// const http = Vue.http
+api.interceptors.request.use(
+    (config) => {
+      config.headers.authkey = "f4f49fd6deed76678e60";
+   
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+   );
+   
 
-// http.options.root = "http://localhost:3333/"
-
-// export { http }
-
-import Vue from 'vue';
-import VueResource from 'vue-resource'
-
-Vue.use(VueResource)
-
-const http = Vue.http
-
-http.options.root = "http://143.198.70.219"
-
-export { http }
+export default api

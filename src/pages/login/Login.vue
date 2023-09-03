@@ -84,6 +84,7 @@
 import Authentication from "../../services/authentication";
 
 import Mixin from '../../core/Mixin';
+import api from "../../http/index"
 
 export default {
   components: {},
@@ -97,8 +98,23 @@ export default {
   },
   mounted(){
     this.obterInputs(this.tipoLogin);
+    this.obterInformacoesSubdominio();
   },
   methods: {
+
+    obterInformacoesSubdominio(){
+      console.log(this.$route.query.subdominio, "subd");
+      api({
+        method: 'get',
+        url:  `/list_accounts`,
+        params: {
+         subdominio:`${this.$route.query.subdominio}`
+        }
+      }).then((response)=>{
+        console.log(response, "RES LOGIN")        
+      });
+    },
+
     mudarTipoLogin(novoModo){
       this.tipoLogin = novoModo;
       this.obterInputs(novoModo);
@@ -159,14 +175,14 @@ export default {
       });
 
       console.log(autenticacao, "enviarFormulario")
-      // autenticacao.key != ""
-      //   ? this.$router.push({ name: "Home" }).catch(() => {})
-      //   : null;
+      autenticacao.id != ""
+        ? this.$router.push({ name: "Home" }).catch(() => {})
+        : null;
 
-      // this.$setStoreUsuarioLogado({
-      //   apiKey: autenticacao.key,
-      //   ...this.user
-      // });
+      this.$setStoreUsuarioLogado({
+        apiKey: autenticacao.key,
+        ...this.user
+      });
     },
 
     onChildUpdate(newValue) {

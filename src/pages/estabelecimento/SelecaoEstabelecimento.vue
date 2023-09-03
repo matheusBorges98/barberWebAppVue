@@ -85,7 +85,7 @@ export default {
         multiselectOptions:[
           // { value: "Selecione uma", text: '' },
           { value: 'Barbearia 99', text: 'Barbearia 99', id: "1", subdominio: "barbeariagaragem99" },
-          { value: 'Barbearia Conceito', text: 'Barbearia Conceito', id:"2", subdominio: "conceito" },
+          { value: 'Barbearia Conceito', text: 'Barbearia Inspire', id:"2", subdominio: "inspire" },
         ]
       }]
 
