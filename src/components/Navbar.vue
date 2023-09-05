@@ -65,6 +65,12 @@ export default {
                 path: {name: "Servicos"},
                 iconLeft: '<i class="fa fa-indent"></i>'
               },
+               {
+                type: "link",
+                text: "Cadastro Serviço",
+                path: {name: "Cadastro Servico"},
+                iconLeft: '<i class="fa fa-indent"></i>'
+              },
               // {
               //   type: "link",
               //   text: "Histórico",

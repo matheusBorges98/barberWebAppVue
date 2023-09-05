@@ -22,6 +22,7 @@
           size="md" 
           v-model="vmodel" 
           @select="onChange"
+          :multiple="true"
           :options="multiselectOptions"
           :label="labelsMultiselect" 
           :track-by="labelsMultiselect"
@@ -133,11 +134,6 @@ export default {
 
   methods: {
     onChange(value) {
-      // Supports .lazy
-      console.log(value)
-      //this.value = event
-      //return event
-
       this.$emit('changeValue', { [this.name]: value })
     },
   },

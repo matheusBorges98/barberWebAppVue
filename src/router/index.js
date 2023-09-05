@@ -99,6 +99,16 @@ const routes = [
         },
         component: () => import('../pages/agendamentos/SelecaoPrestadorServico'),
     },
+
+    {
+        path: '/cadastroProduto',
+        name: 'Cadastro Produto',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/produtos/CadastroProdutos'),
+    },
 ]
 
 const router = new VueRouter({
