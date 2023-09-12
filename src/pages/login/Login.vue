@@ -91,7 +91,7 @@ export default {
   mixins: [Mixin],
   data: function () {
     return {
-      tipoLogin: 2,
+      tipoLogin: 1,
       user: [],
       inputs: [],
     };
@@ -165,24 +165,20 @@ export default {
     },
 
     async enviarFormulario() {
-      console.log(this.user)
-      // let autenticacao = {
-      //   key: "chaveapiteste"
-      // };
 
       let autenticacao = await Authentication({
         ...this.user
       });
 
-      console.log(autenticacao, "enviarFormulario")
-      autenticacao.id != ""
+      autenticacao.isAuth
         ? this.$router.push({ name: "Home" }).catch(() => {})
         : null;
 
       this.$setStoreUsuarioLogado({
-        apiKey: autenticacao.key,
-        ...this.user
+        ...autenticacao
       });
+
+      console.log(this.$store.getters.getPropriedades.dadosUsuarioLogado, "Dados usuario logado")
     },
 
     onChildUpdate(newValue) {

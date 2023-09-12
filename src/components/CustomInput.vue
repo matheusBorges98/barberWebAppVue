@@ -22,7 +22,6 @@
           size="md" 
           v-model="vmodel" 
           @select="onChange"
-          :multiple="true"
           :options="multiselectOptions"
           :label="labelsMultiselect" 
           :track-by="labelsMultiselect"

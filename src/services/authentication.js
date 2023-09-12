@@ -2,14 +2,18 @@ import api from "../http/index"
 
 export default async function authentication(login, senha) {
   console.log(login, senha);
+  // this.currentDataUser = "teste";
+
+  console.log(this, "current data user")
+  let dadosRetorno = {};
 
   try {
-    let isAuthenticated = false;
+    let isAuth = false;
 
     const usuario =  {
-      email: "admin@b-systems.com.br",
-      password: "#Senha123",
-      base_url: "http://143.198.70.219"
+      email: "pablo@inspire.com",
+      password: "@Pablo2000",
+      subdomain: "inspire"
    }
 
     const response = await api({
@@ -19,13 +23,25 @@ export default async function authentication(login, senha) {
         ...usuario
       }
     });
-    
-    console.log(response, "response")
+
     if (response && response.data.user) {
-      isAuthenticated = true;
+      isAuth = true;
+    };
+
+    let { uid, client, expiry  } = response.headers;
+    let accessToken = response.headers['access-token']
+    let { data : detalhesUsuarioLogado } = response;
+
+    dadosRetorno = {
+      isAuth,
+      uid,
+      accessToken,
+      client,
+      expiry,
+      ...detalhesUsuarioLogado
     }
-    console.log(isAuthenticated)
-    return isAuthenticated;
+
+    return dadosRetorno;
 
   } catch (error) {
     console.error(`Ocorreu um erro ao realizar o login: ${error}`);

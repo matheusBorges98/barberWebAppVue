@@ -30,6 +30,7 @@ import router from './router'
 import store from './store'
 
 import Login from './pages/login/Login'
+import axios from "./http/index"
 
 Vue.component('vue-flip', VueFlip)
 Vue.use(Notifications);
@@ -46,11 +47,13 @@ Vue.component('vue-navigation-bar', VueNavigationBar);
 Vue.config.productionTip = false;
 
 Vue.prototype.teste = "teste";
+Vue.prototype.currentDataUser = {};
 
 new Vue({
     router,
     store,
     Login,
+    axios,
     // AuthMiddleware,
     render: (h) => h(App),
 }).$mount('#app')

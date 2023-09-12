@@ -63,7 +63,7 @@ const mixin = {
         },
         //Cria e atualiza a variavel userData no vuex
         $setStoreUsuarioLogado(data){
-            this.$store.commit(`setPropriedades`, {informacoesUsuarioLogado : {...data}});        
+            this.$store.commit(`setPropriedades`, {dadosUsuarioLogado : {...data}});        
         },
         
         //Cria e atualiza a variavel servicosOferecidos no vuex

@@ -45,6 +45,24 @@ const routes = [
             import('../pages/servicos/Servicos'),
     },
     {
+        path: '/listagemServicos',
+        name: 'Listagem Servicos',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () =>
+            import('../pages/servicos/ListagemServicos'),
+    },
+    {
+        path: '/cadastroServico',
+        name: 'Cadastro Servico',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () =>
+            import('../pages/servicos/CadastroServico'),
+    },
+    {
         path: '/home',
         name: 'Home',
         meta: {
@@ -108,6 +126,15 @@ const routes = [
             requiresAuth: true,
         },
         component: () => import('../pages/produtos/CadastroProdutos'),
+    },
+    {
+        path: '/listagemProdutos',
+        name: 'Listagem Produtos',
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../pages/produtos/ListagemProdutos'),
     },
 ]
 

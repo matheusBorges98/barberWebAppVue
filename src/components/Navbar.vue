@@ -68,7 +68,7 @@ export default {
                {
                 type: "link",
                 text: "Cadastro Serviço",
-                path: {name: "Cadastro Servico"},
+                path: {name: "Listagem Servicos"},
                 iconLeft: '<i class="fa fa-indent"></i>'
               },
               // {
@@ -98,6 +98,20 @@ export default {
                 text: "Financeiro",
                 //   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
                 path: {name: "Financeiro"},
+                iconLeft: '<i class="fa fa-book"></i>'
+              },
+            ]
+          },
+          {
+            type: "link",
+            text: "Produtos",
+            arrowColor: "#659CC8",
+            subMenuOptions: [
+              {
+                type: "link",
+                text: "Cadastrar",
+                //   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
+                path: {name: "Cadastro Produto"},
                 iconLeft: '<i class="fa fa-book"></i>'
               },
             ]

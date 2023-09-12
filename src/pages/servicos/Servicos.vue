@@ -163,7 +163,7 @@ export default {
           id: "b",
           valor: "45,00",
           imgUrl: "https://cdn.openart.ai/uploads/image_dAgS5S90_1688605734196_512.webp",
-          duracao: "30",
+          duracao: "60",
           nome: "Corte com degradê",
           descricao: "Corte de cabelo utilizando tesoura, máquina e acabamento na lamina",
           itens: [{

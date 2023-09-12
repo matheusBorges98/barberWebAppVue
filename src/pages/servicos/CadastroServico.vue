@@ -7,8 +7,8 @@
       colXL="12"
       containerSlotClass="text-center"
       transitionName="slide-right"
-      titulo="Cadastro de Produtos"
-      subtitulo="Crie ou edite um produto"
+      titulo="Cadastro de Serviços"
+      subtitulo="Crie ou edite um serviço"
     >
       <b-row class="p-2">
         <b-col
@@ -80,12 +80,9 @@ export default {
       try{
         await api({
           method: 'post',
-          url:  `/products?key_transform_camel_lower=true`,
+          url:  `/services`,
           data: {
-            product:{
-              ...this.formularioProduto
-            }
-            
+            ...this.formularioProduto
           },
           headers:{
             ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
