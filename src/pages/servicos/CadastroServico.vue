@@ -28,9 +28,10 @@
             :isMultiselect="input.isMultiselect"
             :labelsMultiselect="input.labelsMultiselect"
             :multiselectOptions="input.multiselectOptions"
-            :type="input.type"
+            :inputType="input.inputType"
             :formatter="input.formatter"
             v-model="input.model"
+            :modelValue="input.value"
             :id="input.id"
             :valid="null"
             v-on:changeValue="onChildUpdate"
@@ -41,11 +42,11 @@
       <b-row class="mt-5">
        <b-col class="d-flex justify-content-end">
          
-        <b-button variant="outline-primary" class="col-3 m-1" v-on:click="sendForm()">
+        <b-button variant="outline-primary" class="col-2 m-1" v-on:click="listagemServicos()">
           Voltar
         </b-button>
          
-        <b-button variant="primary" class="col-3 m-1" v-on:click="sendForm()">
+        <b-button variant="primary" class="col-2 m-1" v-on:click="sendForm()">
           Gravar produto
         </b-button>
 
@@ -67,14 +68,40 @@ export default {
   data: function (){
     return{
       inputs:[],
-      formularioProduto:[]
+      formularioServico:[]
     }
   },
   mounted() {
     this.obterInputs();
+    this.popularFormulario();
   },
 
   methods:{
+    popularFormulario(){
+      if(this.$route && this.$route.params && this.$route.params.servico){
+        
+        for(let i = 0; i < this.inputs.length; i++){
+          console.log(this.$route.params.servico[this.inputs[i].model])
+
+          if(this.$route.params.servico[this.inputs[i].model] != undefined){
+              this.inputs[i] = {
+                ...this.inputs[i],
+                value : this.$route.params.servico[this.inputs[i].model]
+            }
+          }
+          
+        };
+        
+      };
+
+    },
+
+    listagemServicos(){
+      this.$router.push({name: 'Listagem Servicos', params: {}}).catch((e) => {
+          console.error(e)
+        })
+    },
+
     async sendForm(){
       console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS USER ENVIAR FORM")
       try{
@@ -82,7 +109,7 @@ export default {
           method: 'post',
           url:  `/services`,
           data: {
-            ...this.formularioProduto
+            ...this.formularioServico
           },
           headers:{
             ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
@@ -91,7 +118,7 @@ export default {
           }
         });
 
-        this.$router.push({ path: `listagemProdutos` }).catch(() => {})
+        this.$router.push({ path: `listagemServicos` }).catch(() => {})
       }catch(e){
         console.error(e)
       }
@@ -112,7 +139,7 @@ export default {
     
     retorno =   [
         {
-            label: "Código do produto",
+            label: "Código do Servico",
             id:"code",
             model:"code",
             placeholder: "",
@@ -124,10 +151,10 @@ export default {
 
         },
         {
-            label: "Nome do Produto",
+            label: "Nome do Servico",
             id:"name",
             model:"name",
-            placeholder: "Digite o nome do produto",
+            placeholder: "Digite o nome do Servico",
             sm:"12",
             md:"6",
             lg:"3",
@@ -138,7 +165,7 @@ export default {
             label: "Descrição",
             id:"description",
             model:"description",
-            // placeholder: "Digite o nome do produto",
+            // placeholder: "Digite o nome do Servico",
             sm:"12",
             md:"6",
             lg:"3",
@@ -149,7 +176,8 @@ export default {
             label: "Sugestão de Preço",
             id:"suggestedPrice",
             model:"suggestedPrice",
-            // placeholder: "Digite o nome do produto",
+            inputType:"number", 
+            // placeholder: "Digite o nome do Servico",
             sm:"12",
             md:"6",
             lg:"3",
@@ -165,17 +193,13 @@ export default {
       let novoValorModel = Object.keys(newValue);
 
       for (let key of novoValorModel) {
-        if (this.formularioProduto.length > 0) {
-          this.formularioProduto[key] = newValue;
+        if (this.formularioServico.length > 0) {
+          this.formularioServico[key] = newValue;
         } else {
-          this.formularioProduto[novoValorModel] = newValue[novoValorModel];
+          this.formularioServico[novoValorModel] = newValue[novoValorModel];
         }
       };
 
-      console.log(this.formularioProduto)
-
-
-    //   this.$router.push({ path: `/login?subdominio=${this.formularioProduto.empresa.subdominio}` }).catch(() => {})
     },
   }
 }

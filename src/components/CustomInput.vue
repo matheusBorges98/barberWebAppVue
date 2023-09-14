@@ -1,17 +1,18 @@
 <template>
     <FloatingLabel
-      :config="{label: label}"
-      v-show="visible"
-      >
+        :config="{label: label, scale:false}"
+        v-show="visible"
+        :class="modelValue ? 'input__container--content' : ''"
+    >
        <b-form-input
           v-if="!isMultiselect"
           class="customInput"
           size="md"
-          :v-model="vmodel"
-          v-on:change="onChange"
+          v-model="vmodel"
+          @change="onChange"
           :state="state"
           :formatter="formatter"
-          :type="type"
+          :type="inputType"
         >
         </b-form-input>
         
@@ -52,15 +53,10 @@ export default {
   },
   data(){
     return{
-      vmodel : this.value,
-      state: undefined
+      vmodel :undefined,
+      state: undefined,
     } 
   },
-
-  mounted(){
-    console.log(this.vmodel )
-  },
-
   props: {
     label: {
       type: String,
@@ -70,10 +66,8 @@ export default {
     //   type: String,
     //   required: true,
     // },
-    value: {
-      type: String,
-      required: true,
-      default: undefined
+    modelValue: {
+
     },
     placeholder: {
       type: String,
@@ -99,10 +93,6 @@ export default {
     formatter:{
         type: String,
     },
-    type: {
-      type: String,
-      default: "text",
-    },
     labelsMultiselect: {
       type: String,
       default: "",
@@ -111,6 +101,9 @@ export default {
       type: String,
       default: "",
     },
+    inputType:{
+        default:"text"
+    }
   },
   computed: {
     name() {
@@ -119,7 +112,10 @@ export default {
   },
 
   mounted(){
-    console.log(this.labelsMultiselect)
+    if(this.modelValue){
+        this.vmodel = this.modelValue
+    };
+
     if(this.formatter){
         try{
             if(this.formatter()){
@@ -133,8 +129,15 @@ export default {
 
   methods: {
     onChange(value) {
-      this.$emit('changeValue', { [this.name]: value })
+        let parsedValue = value;
+
+        if (!isNaN(parsedValue)) {
+            parsedValue = parseFloat(value);
+        };
+
+        this.$emit('changeValue', { [this.name]: parsedValue });
     },
+
   },
 }
 </script>
