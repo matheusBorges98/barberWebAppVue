@@ -120,12 +120,8 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params, "Cadastro agendamento")
-    this.servico = this.$route.params.servico;
-    this.horarioAgendamento = this.$route.params.horario;
-    this.prestador = this.$route.params.prestador;
-  
-    // this.humanizedDateString(this.horarioAgendamento);
+    this.servico = this.$getStore("comanda")?.servico
+    this.prestador = this.$getStore("comanda")?.prestador;
   },
 
   methods:{
@@ -133,7 +129,7 @@ export default {
     montarCamposPersonalizados(){
       return [
        {
-        profissional : this.prestador.nome,
+        profissional : this.$getStore("comanda")?.prestador?.nome,
         observacao:"Dia do noivo"
        }
       ]
@@ -142,11 +138,9 @@ export default {
     async enviarAgendamento(){
       
       const dadosAgendamento = {
-        servico : this.servico,
-        data: this.horarioAgendamento,
-        usuario: {},
+        ...this.$getStore("comanda"),
+        usuario: this.$getStore("dadosUsuarioLogado"),
         empresa: "id_empresa",
-        prestador: this.prestador,
         concluido: false
       }
 
@@ -162,13 +156,14 @@ export default {
       this.$notify({
         title: 'Novo agendamento',
         text: `
-                <p>O seu agendamento foi confirmado para <b> ${this.humanizarTimestamp(this.horarioAgendamento)}</b>.</p>
+                <p>O seu agendamento foi confirmado para <b> ${this.humanizarTimestamp(this.$getStore("comanda").horarioAgendamento)}</b>.</p>
                 <b> ${ this.dataFormatada }</b>
         `,
         duration:5000
       });
 
-      this.$router.push({name: 'Meus Agendamentos', params: {}}).catch((e) => {
+      return this.$router.push({name: 'Meus Agendamentos', params: {}}).catch((e) => {
+        this.$clearStore("comanda");
         console.error(e)
       })
     },

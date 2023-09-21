@@ -24,9 +24,3 @@ const store = new Vuex.Store({
 })
 
 export default store
-
-// export default new Vuex.Store({
-//   modules: {
-   
-//   }
-// })

@@ -82,10 +82,7 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$route.params)
-    console.log(this.$route.params, "Horarios agendamento")
     this.carregarItemsTabelaAgendamentos();
-    console.log(this.isMobile());
   },
   methods: {
     carregarItemsTabelaAgendamentos(){
@@ -93,7 +90,6 @@ export default {
       let items = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
 
       for(let item of items){
-        console.log(item, "item")
         this.events.push(
           {
             id: `${item.data}${item.empresa}`,
@@ -139,34 +135,33 @@ export default {
     },
 
     cellClick(item) {
-
       const horaFormatada = this.arredondarTimestampParaBaixo(item);
       const horarioSelecionado = new Date(horaFormatada);
       const dataAtual = new Date();
 
+      let servico = this.$getStore("comanda")?.servico;
+      console.log(servico, "SERVICO NO HORARIO AGENDAMENTO")
      if (horarioSelecionado > dataAtual) {
-        if (this.$route.params && this.$route.params.servico) {
-          return this.$router
-            .push({
-              name: 'Cadastro Agendamento',
-              params: {
-                ...this.$route.params,
-                servico: this.$route.params.servico,
-                horario: horaFormatada,
-                split:1,
-                data: '',
-              },
-            })
-            .catch((e) => {
-              console.error(e);
+        if ( servico && servico != undefined ) {
+          this.$setStoreComanda({
+            ...this.$getStore("comanda"),
+            horario: horaFormatada,
+            split:1,
+            data: '',
+          });
+
+          return this.$router.push({name: 'Cadastro Agendamento'}).catch((e) => {
+            console.error(e);
+          });
+
+        } else if(!servico) {
+             this.$setStoreComanda({
+              ...this.$getStore("comanda"),
+              horario: horaFormatada,
+              split:1,
             });
-        } else {
-          return this.$router
-            .push({
-              name: 'Servicos',
-              params: { horario: horaFormatada },
-            })
-            .catch((e) => {
+
+            return this.$router.push({ name: 'Servicos' }).catch((e) => {
               console.error(e);
             });
         }

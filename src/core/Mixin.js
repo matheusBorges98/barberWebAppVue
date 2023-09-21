@@ -14,7 +14,7 @@ const mixin = {
     },
 
     mounted() {        
-        this.startLocalStorageCleanupTimer();
+        // this.startLocalStorageCleanupTimer();
         this.$setStoreUsuarioLogado(this.getItemsFromLocalStorage("dadosUsuarioLogado")[0]);
     },
 
@@ -23,36 +23,36 @@ const mixin = {
     },
 
     methods: {
-        startLocalStorageCleanupTimer() {
-            // Defina um intervalo de tempo de 15 minutos em milissegundos
-            const cleanupInterval = 15 * 60 * 1000; // 15 minutos em milissegundos
+        // startLocalStorageCleanupTimer() {
+        //     // Defina um intervalo de tempo de 15 minutos em milissegundos
+        //     const cleanupInterval = 15 * 60 * 1000; // 15 minutos em milissegundos
         
-            // Inicie um temporizador que executa a verificação a cada 15 minutos
-            this.cleanupTimer = setInterval(() => {
-                // Implemente a lógica para verificar e remover chaves expiradas aqui
-                this.checkAndRemoveExpiredKeys();
-            }, cleanupInterval);
-            console.log(this.cleanupTimer)
-        },
+        //     // Inicie um temporizador que executa a verificação a cada 15 minutos
+        //     this.cleanupTimer = setInterval(() => {
+        //         // Implemente a lógica para verificar e remover chaves expiradas aqui
+        //         this.checkAndRemoveExpiredKeys();
+        //     }, cleanupInterval);
+        //     console.log(this.cleanupTimer)
+        // },
 
-        checkAndRemoveExpiredKeys() {
-        // Recupere o objeto "dadosUsuarioLogado" do Local Storage
-            const userData = JSON.parse(localStorage.getItem('dadosUsuarioLogado'));
+        // checkAndRemoveExpiredKeys() {
+        // // Recupere o objeto "dadosUsuarioLogado" do Local Storage
+        //     const userData = JSON.parse(localStorage.getItem('dadosUsuarioLogado'));
         
-            // Verifique se o objeto foi recuperado com sucesso
-            if (userData && userData.expire) {
-                // Obtenha a data e hora atual em milissegundos
-                const currentTimestamp = Date.now();
+        //     // Verifique se o objeto foi recuperado com sucesso
+        //     if (userData && userData.expire) {
+        //         // Obtenha a data e hora atual em milissegundos
+        //         const currentTimestamp = Date.now();
         
-                // Converta o timestamp do campo "expire" para milissegundos
-                const expireTimestamp = userData.expire * 1000; // Supondo que o campo "expire" esteja em segundos
+        //         // Converta o timestamp do campo "expire" para milissegundos
+        //         const expireTimestamp = userData.expire * 1000; // Supondo que o campo "expire" esteja em segundos
         
-                // Se o timestamp expirar, remova o objeto do Local Storage
-                if (currentTimestamp >= expireTimestamp) {
-                localStorage.removeItem('dadosUsuarioLogado');
-                }
-            }
-        },
+        //         // Se o timestamp expirar, remova o objeto do Local Storage
+        //         if (currentTimestamp >= expireTimestamp) {
+        //         localStorage.removeItem('dadosUsuarioLogado');
+        //         }
+        //     }
+        // },
 
         addItemToLocalStorage(key, item) {
             let items = this.getItemsFromLocalStorage(key);
@@ -126,12 +126,35 @@ const mixin = {
 
         $setStoreServico(data){
             this.$store.commit(`setPropriedades`, {servico : data});        
-        }
+        },
+
+        $setStoreComanda(data){
+            this.$store.commit(`setPropriedades`, {comanda : data});        
+        },
+
+        $getStore(key){
+            console.log("$GETSTORE", key)
+            try{
+                return this.$store.getters.getPropriedades[key];
+            }catch(e){
+                console.error(e, "$getStore");
+                return undefined;
+            };
+        },
+
+        $clearStore(key){
+            try{
+                this.$store.getters.getPropriedades[key] = undefined;
+            }catch(e){
+                console.error(e, "$clearStore");
+            };
+        },
+
     },
 
-    beforeDestroy() {
-        clearInterval(this.cleanupTimer);
-    },
+    // beforeDestroy() {
+    //     clearInterval(this.cleanupTimer);
+    // },
 
 
    };

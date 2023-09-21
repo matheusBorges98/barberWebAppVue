@@ -38,8 +38,11 @@
 <script>
 /* eslint-disable */
 
+import Mixin from '../../core/Mixin';
+import axios from "axios";
+
 export default {
-  components: {},
+  mixins: [Mixin],
   data: function () {
     return {
       json:[],
@@ -65,7 +68,7 @@ export default {
   },
 
   mounted(){            
-    console.log(this.$store.getters.getPropriedades, "store")
+    this.$clearStore("comanda");
   },
 
   methods:{

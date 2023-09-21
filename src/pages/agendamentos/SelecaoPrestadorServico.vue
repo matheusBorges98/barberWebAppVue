@@ -62,7 +62,10 @@
 </template>
 
 <script>
+import Mixin from '../../core/Mixin';
+
 export default {
+  mixins: [Mixin],
   data: function () {
     return {
       prestadores: []
@@ -82,22 +85,22 @@ export default {
     },
 
     selected(prestador) {
-      console.log(prestador)
-      if(this.$route.params && !this.$route.params.servico){
-        return this.$router.push(
-          {
-            name: 'Servicos', 
-            params: {
-              prestador,
-            }
-          }).catch((e) => {
+       let servico = this.$getStore("comanda")?.servico;
+
+      this.$setStoreComanda({
+        ...this.$getStore("comanda"),
+        prestador
+      });
+
+      if(servico && servico != undefined){  
+        return this.$router.push({name: 'Servicos'}).catch((e) => {
           console.error(e)
         });
       }else{
-        return this.$router.push({name: 'Horarios Agendamentos', params: {prestador}}).catch((e) => {
+        return this.$router.push({name: 'Horarios Agendamentos'}).catch((e) => {
           console.error(e)
         })
-      }
+      };
 
     },
 

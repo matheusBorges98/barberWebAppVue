@@ -83,7 +83,10 @@
 </template>
 
 <script>
+import Mixin from '../../core/Mixin';
+
 export default {
+  mixins: [Mixin],
   data: function () {
     return {
       servicos: [],
@@ -91,7 +94,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params, "Servicos")
     this.verificaProfissionalSelecionado();
     this.getServices();
   },
@@ -99,18 +101,14 @@ export default {
   methods: {
 
     verificaProfissionalSelecionado() {
-      if(this && this.$route && !this.$route.params.prestador){
-        this.$router.push(
-          {
-            name: 'Prestadores', 
-            params: {
-              ...this.$route.params
-              // horario:this.$route.params?.horario ?? ""
-            }
-          }).catch((e) => {
-          console.error(e)
-        });
-      }
+
+      // let prestador = this.$getStore("comanda")?.prestador;
+
+      // if(!prestador){
+      //   this.$router.push({name: 'Prestadores'}).catch((e) => {
+      //     console.error(e)
+      //   });
+      // }
 
     },
 
@@ -121,24 +119,25 @@ export default {
     },
 
     selected(servico) {
-      console.log(servico)
-      if(this.$route.params && this.$route.params.horario){
-        return this.$router.push(
-          {
-            name: 'Cadastro Agendamento', 
-            params: {
-              servico,
-              horario:this.$route.params.horario,
-              ...this.$route.params
-            }
-          }).catch((e) => {
+      let horario = this.$getStore("comanda")?.horario;
+      console.log(horario, "HORARIO")
+      this.$setStoreComanda({
+        ...this.$getStore("comanda"),
+        servico,
+      });
+      console.log(this.$getStore("comanda"))
+      if(horario && horario != undefined){
+        console.log("selected", horario)
+        return this.$router.push({name: 'Cadastro Agendamento'}).catch((e) => {
           console.error(e)
         });
-      }else{
-        return this.$router.push({name: 'Horarios Agendamentos', params: {...this.$route.params, servico}}).catch((e) => {
-          console.error(e)
-        })
       }
+      // else if(!horario){
+      //   console.log("selected else")
+      //   // return this.$router.push({name: 'Horarios Agendamentos'}).catch((e) => {
+      //   //   console.error(e)
+      //   // })
+      // }
 
     },
 
