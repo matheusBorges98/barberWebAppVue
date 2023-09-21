@@ -46,7 +46,7 @@
           Voltar
         </b-button>
          
-        <b-button variant="primary" class="col-2 m-1" v-on:click="sendForm()">
+        <b-button variant="primary" class="col-2 m-1" v-on:click="enviarFormulario()">
           Gravar produto
         </b-button>
 
@@ -102,7 +102,7 @@ export default {
         })
     },
 
-    async sendForm(){
+    async enviarFormulario(){
       console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS USER ENVIAR FORM")
       try{
         await api({
@@ -120,7 +120,16 @@ export default {
 
         this.$router.push({ path: `listagemServicos` }).catch(() => {})
       }catch(e){
-        console.error(e)
+         this.$notify({
+          title: 'Falha ao gravar Serviço',
+          text: `
+                  <p>Não foi possível gravar o serviço, verifique o formulário e tente novamente</b>.</p>
+          `,
+          duration:5000,
+          type: 'warn'
+        });
+
+        console.error(e);
       }
     
     },
@@ -167,8 +176,8 @@ export default {
             model:"description",
             // placeholder: "Digite o nome do Servico",
             sm:"12",
-            md:"6",
-            lg:"3",
+            md:"8",
+            lg:"6",
             xl:"3",
             cols:"12",
         },
@@ -179,8 +188,8 @@ export default {
             inputType:"number", 
             // placeholder: "Digite o nome do Servico",
             sm:"12",
-            md:"6",
-            lg:"3",
+            md:"4",
+            lg:"6",
             xl:"3",
             cols:"12",
         },
@@ -190,13 +199,13 @@ export default {
     },
 
     onChildUpdate(newValue) {
-      let novoValorModel = Object.keys(newValue);
+      let chave = Object.keys(newValue);
 
-      for (let key of novoValorModel) {
+      for (let key of chave) {
         if (this.formularioServico.length > 0) {
           this.formularioServico[key] = newValue;
         } else {
-          this.formularioServico[novoValorModel] = newValue[novoValorModel];
+          this.formularioServico[chave] = newValue[chave];
         }
       };
 
@@ -206,25 +215,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .service-container{
-//   min-height: 10vh !important;
-// }
-
-// @media (max-width: 992px){
-//   .service-container {
-//     min-height: 10vh  !important;
-//   }
-// }
-
-// .service-container {
-//   background-color: transparent !important;
-//   // border-radius: 10px;
-//   transition: transform .2s;
-// }
-
-// .service-container:hover{
-//   transform: scale(1.01);
-
-// }
 
 </style>

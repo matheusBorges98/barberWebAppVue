@@ -59,6 +59,7 @@ export default {
     }
   },
   mounted() {
+    this.deleteItemFromLocalStorage("dadosUsuarioLogado");
     this.obterInputs();
   },
 

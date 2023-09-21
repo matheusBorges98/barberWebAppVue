@@ -36,6 +36,7 @@
           :formatter="input.formatter"
           v-model="input.model"
           :valid="null"
+          :id="input.id"
           v-on:changeValue="onChildUpdate"
         />
       </b-col>
@@ -97,6 +98,7 @@ export default {
     };
   },
   mounted(){
+    this.deleteItemFromLocalStorage("dadosUsuarioLogado");
     this.obterInputs(this.tipoLogin);
     this.obterInformacoesSubdominio();
   },
@@ -135,11 +137,13 @@ export default {
      if(modo == 1){
       retorno = [
         {
+          id:"login",
           label: "Login",
           model: "login",
           placeholder: "Digite seu nome",
         },
         {
+          id:"password",
           label: "Senha",
           model: "password",
           placeholder: "Digite sua senha",
@@ -148,14 +152,16 @@ export default {
      }else if(modo == 2){
       retorno = [
         {
+          id:"name",
           label: "Nome",
           model: "name",
           placeholder: "Digite seu nome",
         },
         {
+          id:"contact",
           label: "celular",
           model: "contact",
-          type:"number",
+          inputType:"number",
           placeholder: "Digite seu celular",
         },
       ]
@@ -165,20 +171,35 @@ export default {
     },
 
     async enviarFormulario() {
+      let formulario = {
+        senha:this.user.password,
+        login:this.user.login,
+        subdominio:this.$route.query.subdominio
+      };
 
-      let autenticacao = await Authentication({
-        ...this.user
-      });
+      let autenticacao = await Authentication(formulario);
 
-      autenticacao.isAuth
-        ? this.$router.push({ name: "Home" }).catch(() => {})
-        : null;
+      if(autenticacao.isAuth){
+        this.aplicarDadosUsuarioLogado(autenticacao);
 
+        this.$router.push({ name: "Home" }).catch(() => {})
+      }else{
+        this.$notify({
+          title: 'Falha no login',
+          text: `
+                  <p>Usuário ou senha inválidos, verifique os dados informados..</p>
+          `,
+          duration:5000
+        });
+      };
+
+    },
+
+    aplicarDadosUsuarioLogado(usuario){
+      this.addItemToLocalStorage("dadosUsuarioLogado", {...usuario})
       this.$setStoreUsuarioLogado({
-        ...autenticacao
+        ...usuario
       });
-
-      console.log(this.$store.getters.getPropriedades.dadosUsuarioLogado, "Dados usuario logado")
     },
 
     onChildUpdate(newValue) {

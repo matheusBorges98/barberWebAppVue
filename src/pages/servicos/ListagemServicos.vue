@@ -110,11 +110,11 @@ export default {
     },
 
     async montarTabela(){
-      this.items = await this.obterProdutos()
+      this.items = await this.obterServicos()
       console.log(this.items)
     },
 
-    async obterProdutos(){
+    async obterServicos(){
       let retorno =  await api({
         method: 'GET',
         url:  `/services?key_transform_camel_lower=true`,
@@ -126,21 +126,8 @@ export default {
       });
 
       return retorno.data.services
-    },
-
-    onChildUpdate(newValue) {
-      let novoValorModel = Object.keys(newValue);
-
-      for (let key of novoValorModel) {
-        if (this.formularioProduto.length > 0) {
-          this.formularioProduto[key] = newValue;
-        } else {
-          this.formularioProduto[novoValorModel] = newValue[novoValorModel];
-        }
-      };
-
-      console.log(this.formularioProduto);
-    },
+    }
+    
   }
 }
 </script>

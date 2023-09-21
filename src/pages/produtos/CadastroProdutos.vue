@@ -76,7 +76,7 @@ export default {
 
   methods:{
     async sendForm(){
-      console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS USER ENVIAR FORM")
+      console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS STORE USER ENVIAR FORM")
       try{
         await api({
           method: 'post',
@@ -96,6 +96,15 @@ export default {
 
         this.$router.push({ path: `listagemProdutos` }).catch(() => {})
       }catch(e){
+        this.$notify({
+          title: 'Falha ao gravar Produto',
+          text: `
+                  <p>Não foi possível gravar o produto, verifique o formulário e tente novamente</b>.</p>
+          `,
+          duration:5000,
+          type: 'warn'
+        });
+
         console.error(e)
       }
     

@@ -1,10 +1,8 @@
 import api from "../http/index"
 
-export default async function authentication(login, senha) {
-  console.log(login, senha);
-  // this.currentDataUser = "teste";
-
-  console.log(this, "current data user")
+export default async function authentication(dados) {
+  let { login, senha, subdominio } = dados
+  
   let dadosRetorno = {};
 
   try {
@@ -15,6 +13,12 @@ export default async function authentication(login, senha) {
       password: "@Pablo2000",
       subdomain: "inspire"
    }
+
+    // const usuario =  {
+    //     email: login,
+    //     password: senha,
+    //     subdomain: subdominio
+    // }
 
     const response = await api({
       method: 'post',

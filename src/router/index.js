@@ -149,24 +149,24 @@ const router = new VueRouter({
 
 // router.beforeEach(async (to, from, next) => {
 //     console.log(to)
-//     if (to.matched.some((record) => record.meta.requiresAuth)) {
-//         console.log("0")
-//         if (true == true) {
-//             next()
-//             console.log("1")
-//         } else {
-//             console.log("2")
-//             next('/')
-//         }
-//     } else {
-//         console.log("3")
-//         if(!to.query.id){
-//             next('/estabelecimentos')
-//         }else{
-//             next()
-//         }
+    // if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //     console.log("0")
+    //     if (true == true) {
+    //         next()
+    //         console.log("1")
+    //     } else {
+    //         console.log("2")
+    //         next('/')
+    //     }
+    // } else {
+    //     console.log("3")
+    //     if(!to.query.id){
+    //         next('/estabelecimentos')
+    //     }else{
+    //         next()
+    //     }
         
-//     }
+    // }
 // });
 // router.beforeEach(async (to, from, next) => {
 //     if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -185,8 +185,13 @@ const router = new VueRouter({
 // });
 router.beforeEach(async (to, from, next) => {
     Vue.prototype.$subdominio = to.query.subdominio;
-
+    let dadosUsuarioLogado = localStorage.getItem("dadosUsuarioLogado");
+    // return items ? JSON.parse(items) : [];
+    console.log(dadosUsuarioLogado, "ROUTER JS");
     if (to.matched.some(record => record.meta.requiresAuth)) {
+        if(!dadosUsuarioLogado){
+            next('/'); // Redirecione para a página de login ou outra página de erro
+        }
         if (true === true) {
             next();
         } else {

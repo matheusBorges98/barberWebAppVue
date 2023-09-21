@@ -111,7 +111,7 @@ export default {
                 type: "link",
                 text: "Cadastrar",
                 //   subText: "Stupid corporate wet blankets. Like booze ever killed anyone.",
-                path: {name: "Cadastro Produto"},
+                path: {name: "Listagem Produtos"},
                 iconLeft: '<i class="fa fa-book"></i>'
               },
             ]
