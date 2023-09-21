@@ -68,11 +68,13 @@ export default {
   mixins: [Mixin],
   data: function () {
     return {
-      prestadores: []
+      prestadores: [],
+      comandaAberta:{}
 
     }
   },
-  mounted() {
+  async mounted() {
+    this.comandaAberta = await this.$getStore("comanda");
     this.getWorkers();
   },
 
@@ -85,14 +87,15 @@ export default {
     },
 
     selected(prestador) {
-       let servico = this.$getStore("comanda")?.servico;
+      console.log(this.comandaAberta, "COMANDA ABERTA SELECAO PR ESTADOR")
+       let servico = this.comandaAberta && this.comandaAberta.servico ? this.comandaAberta.servico : undefined;
 
       this.$setStoreComanda({
-        ...this.$getStore("comanda"),
+        ...this.comandaAberta,
         prestador
       });
 
-      if(servico && servico != undefined){  
+      if(servico == undefined){  
         return this.$router.push({name: 'Servicos'}).catch((e) => {
           console.error(e)
         });

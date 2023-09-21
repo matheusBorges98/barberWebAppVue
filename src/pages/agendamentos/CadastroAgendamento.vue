@@ -56,7 +56,7 @@
                     </b-col>
                     <b-col sm="12">
                       <h5 class="service-date-humanized">Horário agendado:
-                        {{this.humanizarTimestamp(horarioAgendamento)}} <b-icon icon="clock-fill"></b-icon></h5>
+                        {{this.humanizarTimestamp(comandaAberta.horario)}} <b-icon icon="clock-fill"></b-icon></h5>
                     </b-col>
                   </b-row>
 
@@ -66,13 +66,13 @@
                     sm="12"
                     class="text-start information-container"
                 >
-                  <b-row>
+                  <!-- <b-row>
                     <ListaCamposPersonalizados
                       :itens="montarCamposPersonalizados()"
                       :esconderChaves="['id']"
                       tagTexto="h6"
                     />
-                  </b-row>
+                  </b-row> -->
 
                 </b-col>
 
@@ -116,33 +116,38 @@ export default {
       horarioAgendamento:"",
       prestador:{},
       dataFormatada:"",
-      listaServico:[]
+      listaServico:[],
+      comandaAberta:{}
     }
   },
-  mounted() {
-    this.servico = this.$getStore("comanda")?.servico
-    this.prestador = this.$getStore("comanda")?.prestador;
+  async mounted() {
+    this.comandaAberta =  await this.$getStore("comanda");
+    this.servico = this.comandaAberta?.servico
+    this.prestador = this.comandaAberta?.prestador;
+
+    console.log(this.comandaAberta, "COMANDA ABERTA FINALIZACAO")
   },
 
   methods:{
 
-    montarCamposPersonalizados(){
+    async montarCamposPersonalizados(){
       return [
        {
-        profissional : this.$getStore("comanda")?.prestador?.nome,
+        profissional : this.comandaAberta?.prestador?.nome,
         observacao:"Dia do noivo"
        }
       ]
     },
 
     async enviarAgendamento(){
-      
       const dadosAgendamento = {
-        ...this.$getStore("comanda"),
-        usuario: this.$getStore("dadosUsuarioLogado"),
+        ...this.comandaAberta,
+        usuario: await this.$getStore("dadosUsuarioLogado"),
         empresa: "id_empresa",
         concluido: false
       }
+
+      console.log(dadosAgendamento, "dadosAgendamento")
 
       // const url = 'https://exemplo.com/api/endpoint'; 
       // let response = await axios.post(url, dadosAgendamento)
@@ -156,11 +161,13 @@ export default {
       this.$notify({
         title: 'Novo agendamento',
         text: `
-                <p>O seu agendamento foi confirmado para <b> ${this.humanizarTimestamp(this.$getStore("comanda").horarioAgendamento)}</b>.</p>
+                <p>O seu agendamento foi confirmado para <b> ${this.humanizarTimestamp(this.comandaAberta.horario)}</b>.</p>
                 <b> ${ this.dataFormatada }</b>
         `,
         duration:5000
       });
+
+      this.$clearStore("comanda");
 
       return this.$router.push({name: 'Meus Agendamentos', params: {}}).catch((e) => {
         this.$clearStore("comanda");

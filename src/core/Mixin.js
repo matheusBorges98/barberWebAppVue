@@ -132,14 +132,14 @@ const mixin = {
             this.$store.commit(`setPropriedades`, {comanda : data});        
         },
 
-        $getStore(key){
-            console.log("$GETSTORE", key)
-            try{
-                return this.$store.getters.getPropriedades[key];
-            }catch(e){
-                console.error(e, "$getStore");
-                return undefined;
-            };
+        async $getStore(key){
+            console.log("$GETSTORE", this.$store.getters.getPropriedades[key])
+            // try{
+                return await this.$store.getters.getPropriedades[key];
+            // }catch(e){
+            //     console.error(e, "$getStore");
+            //     return undefined;
+            // };
         },
 
         $clearStore(key){

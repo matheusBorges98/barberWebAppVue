@@ -90,10 +90,13 @@ export default {
   data: function () {
     return {
       servicos: [],
+      comandaAberta:{},
 
     }
   },
-  mounted() {
+  async mounted() {
+    this.comandaAberta = await this.$getStore("comanda");
+    console.log(this.comandaAberta, "COMANDA ABERTA SERVICOS")
     this.verificaProfissionalSelecionado();
     this.getServices();
   },
@@ -102,13 +105,13 @@ export default {
 
     verificaProfissionalSelecionado() {
 
-      // let prestador = this.$getStore("comanda")?.prestador;
+      let prestador = this.comandaAberta?.prestador;
 
-      // if(!prestador){
-      //   this.$router.push({name: 'Prestadores'}).catch((e) => {
-      //     console.error(e)
-      //   });
-      // }
+      if(!prestador){
+        this.$router.push({name: 'Prestadores'}).catch((e) => {
+          console.error(e)
+        });
+      }
 
     },
 
@@ -119,25 +122,22 @@ export default {
     },
 
     selected(servico) {
-      let horario = this.$getStore("comanda")?.horario;
-      console.log(horario, "HORARIO")
+      let horario = this.comandaAberta && this.comandaAberta.horario ? this.comandaAberta.horario : undefined ;
+
       this.$setStoreComanda({
-        ...this.$getStore("comanda"),
+        ...this.comandaAberta,
         servico,
       });
-      console.log(this.$getStore("comanda"))
-      if(horario && horario != undefined){
-        console.log("selected", horario)
+
+      if(horario != undefined){
         return this.$router.push({name: 'Cadastro Agendamento'}).catch((e) => {
           console.error(e)
         });
+      } else if(horario === undefined){
+        return this.$router.push({name: 'Horarios Agendamentos'}).catch((e) => {
+          console.error(e)
+        })
       }
-      // else if(!horario){
-      //   console.log("selected else")
-      //   // return this.$router.push({name: 'Horarios Agendamentos'}).catch((e) => {
-      //   //   console.error(e)
-      //   // })
-      // }
 
     },
 

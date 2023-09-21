@@ -143,6 +143,7 @@ export default {
       carregarItemsTabelaAgendamentos(){
         // Criar get para API de campos e itens da tabela
         this.items = this.$store.getters.getPropriedades.servicosAgendados;
+        console.log(this.items, "TABELA AGENDAMENTOS")
       },
 
       carregarProximoServicoAgendado(){

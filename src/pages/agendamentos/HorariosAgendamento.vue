@@ -43,6 +43,7 @@ export default {
       detalhesEvento:{},
       agendamentos: [],
       servicoSelecionado: this.$route.params,
+      comandaAberta:{},
       //Deve pegar do banco o id baseado nos prestadores. apenas Visao gerencial verá isso
       customDaySplitLabels: this.isAdmin() ? [
         { label: 'João', color: 'blue', class: 'split1', id:1},
@@ -81,8 +82,10 @@ export default {
 
     }
   },
-  mounted() {
+  async mounted() {
     this.carregarItemsTabelaAgendamentos();
+
+    this.comandaAberta = await this.$getStore("comanda");
   },
   methods: {
     carregarItemsTabelaAgendamentos(){
@@ -139,12 +142,12 @@ export default {
       const horarioSelecionado = new Date(horaFormatada);
       const dataAtual = new Date();
 
-      let servico = this.$getStore("comanda")?.servico;
+      let servico = this.comandaAberta && this.comandaAberta.servico ? this.comandaAberta.servico : undefined ;
       console.log(servico, "SERVICO NO HORARIO AGENDAMENTO")
      if (horarioSelecionado > dataAtual) {
         if ( servico && servico != undefined ) {
           this.$setStoreComanda({
-            ...this.$getStore("comanda"),
+            ...this.comandaAberta,
             horario: horaFormatada,
             split:1,
             data: '',
@@ -154,9 +157,9 @@ export default {
             console.error(e);
           });
 
-        } else if(!servico) {
+        } else if(servico == undefined) {
              this.$setStoreComanda({
-              ...this.$getStore("comanda"),
+              ...this.comandaAberta,
               horario: horaFormatada,
               split:1,
             });
