@@ -107,7 +107,7 @@ export default {
   },
   computed: {
     name() {
-      return this.id.toLowerCase()
+      return this.id;
     },
   },
 

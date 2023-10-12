@@ -28,9 +28,10 @@
             :isMultiselect="input.isMultiselect"
             :labelsMultiselect="input.labelsMultiselect"
             :multiselectOptions="input.multiselectOptions"
-            :type="input.type"
+            :inputType="input.inputType"
             :formatter="input.formatter"
             v-model="input.model"
+            :modelValue="input.value"
             :id="input.id"
             :valid="null"
             v-on:changeValue="onChildUpdate"
@@ -41,7 +42,7 @@
       <b-row class="mt-5">
        <b-col class="d-flex justify-content-end">
          
-        <b-button variant="outline-primary" class="col-3 m-1" v-on:click="sendForm()">
+        <b-button variant="outline-primary" class="col-3 m-1" v-on:click="$router.go(-1)">
           Voltar
         </b-button>
          
@@ -72,9 +73,29 @@ export default {
   },
   mounted() {
     this.obterInputs();
+    this.popularFormulario();
   },
 
   methods:{
+    popularFormulario(){
+      if(this.$route && this.$route.params && this.$route.params.produto){
+        
+        for(let i = 0; i < this.inputs.length; i++){
+          console.log(this.$route.params.produto[this.inputs[i].model])
+
+          if(this.$route.params.produto[this.inputs[i].model] != undefined){
+              this.inputs[i] = {
+                ...this.inputs[i],
+                value : this.$route.params.produto[this.inputs[i].model]
+            }
+          }
+          
+        };
+        
+      };
+
+    },
+
     async sendForm(){
       console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS STORE USER ENVIAR FORM")
       try{

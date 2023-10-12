@@ -118,6 +118,13 @@ export default {
       let retorno =  await api({
         method: 'GET',
         url:  `/services?key_transform_camel_lower=true`,
+        params:{
+          sort_direction:"desc",
+          sort_property:"id",
+          count:true,
+          per_page: 10,
+          page:1 /// pegar a pgina atual da tabela
+        },
         headers:{
           ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
           client : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.client ?? "",

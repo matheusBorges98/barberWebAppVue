@@ -42,7 +42,7 @@
       <b-row class="mt-5">
        <b-col class="d-flex justify-content-end">
          
-        <b-button variant="outline-primary" class="col-2 m-1" v-on:click="listagemServicos()">
+        <b-button variant="outline-primary" class="col-2 m-1" v-on:click="$router.go(-1)">
           Voltar
         </b-button>
          
@@ -96,20 +96,16 @@ export default {
 
     },
 
-    listagemServicos(){
-      this.$router.push({name: 'Listagem Servicos', params: {}}).catch((e) => {
-          console.error(e)
-        })
-    },
-
     async enviarFormulario(){
-      console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS USER ENVIAR FORM")
       try{
         await api({
           method: 'post',
           url:  `/services`,
           data: {
-            ...this.formularioServico
+            service:{
+              ...this.formularioServico
+            }
+            
           },
           headers:{
             ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
@@ -199,8 +195,9 @@ export default {
     },
 
     onChildUpdate(newValue) {
-      let chave = Object.keys(newValue);
 
+      let chave = Object.keys(newValue);
+      console.log(chave, "CHAVE")
       for (let key of chave) {
         if (this.formularioServico.length > 0) {
           this.formularioServico[key] = newValue;

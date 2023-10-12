@@ -12,7 +12,7 @@
       <b-row class="mt-5">
        <b-col class="d-flex justify-content-start">
          
-        <b-button variant="primary" class="col-2 m-1" v-on:click="cadastroProduto()">
+        <b-button variant="outline-primary" class="col-2 m-1" v-on:click="cadastroProduto()">
           Novo
         </b-button>
 
@@ -71,8 +71,8 @@ export default {
 
     cadastroProduto(produto = {}){
       this.$router.push({name: 'Cadastro Produto', params: {produto}}).catch((e) => {
-          console.error(e)
-        })
+        console.error(e)
+      })
     },
 
     async obterCabecalhosTabela(){
@@ -125,7 +125,7 @@ export default {
         }
       });
 
-      return retorno.data.services
+      return retorno.data.products
     }
 
   }

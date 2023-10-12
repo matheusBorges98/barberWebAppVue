@@ -106,7 +106,7 @@
 
 <script>
 import Mixin from '../../core/Mixin';
-import axios from "axios";
+import api from "../../http/index"
 
 export default {
   mixins: [Mixin],
@@ -139,19 +139,59 @@ export default {
       ]
     },
 
+    montarObjetoProdutos(produtos){
+      let objetoMontado = [];
+
+      produtos.map((item)=>{
+        objetoMontado.push({
+          id: item.id,
+          price: item?.preco ?? 0
+        })
+      });
+
+      return objetoMontado;
+    },
+
+    montarObjetoServico(servico){
+      let objetoMontado = [];
+
+      objetoMontado.push({
+        id: servico.id,
+        price: parseFloat(servico.valor),
+        duration: parseInt(servico.duracao),
+      });
+
+      return objetoMontado;
+    },
+
     async enviarAgendamento(){
+
       const dadosAgendamento = {
-        ...this.comandaAberta,
-        usuario: await this.$getStore("dadosUsuarioLogado"),
-        empresa: "id_empresa",
-        concluido: false
-      }
+        situation: this.comandaAberta.concluido,
+        discount: 0,
+        total: parseFloat(this.comandaAberta.servico.valor),
+        customerId: this.$store.getters.getPropriedades?.dadosUsuarioLogado?.user.account.id ,
+        professionalId: this.comandaAberta.prestador.id,
+        services: this.montarObjetoServico(this.comandaAberta.servico),
+        products: this.montarObjetoProdutos(this.comandaAberta.servico.itens),
+        scheduledDate:new Date(this.comandaAberta.horario),
+        headquarterId: 1
+      };
 
-      console.log(dadosAgendamento, "dadosAgendamento")
-
-      // const url = 'https://exemplo.com/api/endpoint'; 
-      // let response = await axios.post(url, dadosAgendamento)
-
+      await api({
+        method: 'post',
+        url:  `/schedules`,
+        data: {
+          schedule:{
+            ...dadosAgendamento
+          }
+        },
+        headers:{
+          ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
+          client : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.client ?? "",
+          uid : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.uid ?? ""
+        }
+      });
     
       //Monta ficticio usando store
       let dadosAgendadosStore = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
@@ -174,22 +214,6 @@ export default {
         console.error(e)
       })
     },
-
-    // getWeekDayName(date){
-    //   let timestamp = new Date(date)
-    //   const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    //   const nomeDia = diasSemana[timestamp.getDay()];
-
-    //   return nomeDia;
-    // },
-
-    // humanizedDateString(dateString){
-    //   const nDate = new Date(dateString);
-    //   const diaMesAno = nDate.toLocaleDateString();
-    //   const hora = nDate.toLocaleTimeString();
-
-    //   this.dataFormatada = `${diaMesAno} - ${hora}`;
-    // },
 
     voltar(){
       this.$router.go(-1);
