@@ -98,11 +98,16 @@ export default {
 
     async enviarFormulario(){
       try{
+        let objetoApi = {
+          method: this.$route.params.servico.id ? 'patch' : 'post',
+          url: this.$route.params.servico.id ? `/services/${this.$route.params.servico.id}` : '/services',
+        };
+
         await api({
-          method: 'post',
-          url:  `/services`,
+          ...objetoApi,
           data: {
             service:{
+              ...this.$route.params.servico,
               ...this.formularioServico
             }
             

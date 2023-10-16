@@ -85,6 +85,8 @@
 <script>
 import Mixin from '../../core/Mixin';
 import api from "../../http/index"
+import imagemPadrao from "../../assets/sem_imagem.png"
+
 export default {
   mixins: [Mixin],
   data: function () {
@@ -141,6 +143,24 @@ export default {
 
     },
 
+    montarObjetoServico(services){
+      let retorno = [];
+
+      services.map((service)=>{
+        retorno.push({
+            id        : service.id,
+            valor     : parseFloat(service.suggestedPrice),
+            imgUrl    : service?.imgUrl ?? imagemPadrao,
+            duracao   : service?.defaultDuration != null ? service.defaultDuration : 30,
+            nome      : service.name,
+            descricao : service.description,
+            itens     : [],
+            ...service
+        })
+      });
+
+      return retorno;
+    },
 
     async obterServicos(){
       let retorno =  await api({
@@ -160,20 +180,16 @@ export default {
         }
       });
 
-
-      console.log(retorno, "RET")
-      // return retorno.data.services
-      this.servicos = retorno.data.services;
+      this.servicos = this.montarObjetoServico(retorno.data?.services ?? [])
     },
 
     async getServices() {
-      // buscar da api
       await this.obterServicos();
-      
+    },
 
-    }
-  }
-  }
+  },
+
+}
 
 </script>
 

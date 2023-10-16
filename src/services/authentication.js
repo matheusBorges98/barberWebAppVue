@@ -8,11 +8,17 @@ export default async function authentication(dados) {
   try {
     let isAuth = false;
 
-    const usuario =  {
-      email: "pablo@inspire.com",
-      password: "@Pablo2000",
-      subdomain: "inspire"
-   }
+  //   const usuario =  {
+  //     email: "pablo@inspire.com@sandbox.com.br",
+  //     password: "@Pablo2000",
+  //     subdomain: "inspire"
+  //  }
+
+  const usuario =  {
+    email: "pablo@inspire.com",
+    password: "@Pablo2000",
+    subdomain: "sandbox"
+ }
 
     // const usuario =  {
     //     email: login,
