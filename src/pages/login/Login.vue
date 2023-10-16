@@ -101,6 +101,7 @@ export default {
     this.deleteItemFromLocalStorage("dadosUsuarioLogado");
     this.obterInputs(this.tipoLogin);
     this.obterInformacoesSubdominio();
+    console.log(process.env.VUE_APP_URL, "URL")
   },
   methods: {
 
