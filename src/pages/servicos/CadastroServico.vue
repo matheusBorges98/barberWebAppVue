@@ -202,7 +202,7 @@ export default {
     onChildUpdate(newValue) {
 
       let chave = Object.keys(newValue);
-      console.log(chave, "CHAVE")
+
       for (let key of chave) {
         if (this.formularioServico.length > 0) {
           this.formularioServico[key] = newValue;

@@ -98,12 +98,18 @@ export default {
 
     async sendForm(){
       console.log(this.$store.getters.getPropriedades?.dadosUsuarioLogado, "DADOS STORE USER ENVIAR FORM")
+
+      let objetoApi = {
+        method: this.$route.params.produto.id ? 'patch' : 'post',
+        url: this.$route.params.produto.id ? `/products/${this.$route.params.produto.id}` : '/products',
+      };
+
       try{
         await api({
-          method: 'post',
-          url:  `/products?key_transform_camel_lower=true`,
+          ...objetoApi,
           data: {
             product:{
+              ...this.$route.params.produto,
               ...this.formularioProduto
             }
             

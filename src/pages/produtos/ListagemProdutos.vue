@@ -77,11 +77,74 @@ export default {
 
     async obterCabecalhosTabela(){
       // to do:
-      return [
+         return [
+         {
+          key: 'id',
+          sortable: true,
+          label: 'id',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'uid',
+          sortable: true,
+          label: 'uid',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'createdAt',
+          sortable: true,
+          label: 'createdAt',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'updatedAt',
+          sortable: true,
+          label: 'updatedAt',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'deletedAt',
+          sortable: true,
+          label: 'deletedAt',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'code',
+          sortable: true,
+          label: 'code',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+        {
+          key: 'name',
+          sortable: true,
+          label: 'Nome'
+        },
+         {
+          key: 'description',
+          sortable: true,
+          label: 'description',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
+         {
+          key: 'active',
+          sortable: true,
+          label: 'Ativo',
+          thClass: 'd-none',
+          tdClass: 'd-none'
+        },
         {
           key: 'active',
           sortable: true,
           label: 'Ativo',
+          thClass: 'd-none',
+          tdClass: 'd-none'
         },
         {
           key: 'code',
@@ -97,7 +160,7 @@ export default {
         },
         {
           key: 'actions',
-          label: 'Ações',
+          label: '',
           // sortable: true,
           // Variant applies to the whole column, including the header and footer
           // variant: 'danger'
@@ -111,7 +174,7 @@ export default {
 
     async montarTabela(){
       this.items = await this.obterProdutos()
-      console.log(this.items)
+      console.log(this.items, "items")
     },
 
     async obterProdutos(){

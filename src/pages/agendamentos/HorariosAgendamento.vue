@@ -33,6 +33,7 @@
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import Mixin from '../../core/Mixin';
+import api from "../../http/index"
 
 export default {
   mixins: [Mixin],
@@ -45,12 +46,18 @@ export default {
       servicoSelecionado: this.$route.params,
       comandaAberta:{},
       //Deve pegar do banco o id baseado nos prestadores. apenas Visao gerencial verá isso
-      customDaySplitLabels: this.isAdmin() ? [
+      // customDaySplitLabels: this.isAdmin() ? [
+      //   { label: 'João', color: 'blue', class: 'split1', id:1},
+      //   { label: 'Carlos', color: 'green', class: 'split2', id:2 },
+      //   { label: 'Jeferson', color: 'orange', class: 'split3', id:3 },
+      //   { label: 'Joaquim', color: 'red', class: 'split4', id:4 }
+      // ] : [],
+       customDaySplitLabels:  [
         { label: 'João', color: 'blue', class: 'split1', id:1},
         { label: 'Carlos', color: 'green', class: 'split2', id:2 },
         { label: 'Jeferson', color: 'orange', class: 'split3', id:3 },
         { label: 'Joaquim', color: 'red', class: 'split4', id:4 }
-      ] : [],
+      ],
 
       events: [
         // {
@@ -83,34 +90,72 @@ export default {
     }
   },
   async mounted() {
-    this.carregarItemsTabelaAgendamentos();
+    await this.carregarItemsTabelaAgendamentos();
 
     this.comandaAberta = await this.$getStore("comanda");
   },
   methods: {
-    carregarItemsTabelaAgendamentos(){
+    async carregarItemsTabelaAgendamentos(){
       // Criar get para API de campos e itens da tabela
-      let items = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
+      // let items = this.$store.getters.getPropriedades?.servicosAgendados ?? [];
 
-      for(let item of items){
-        this.events.push(
-          {
-            id: `${item.data}${item.empresa}`,
-            start: this.formatarTimestampDataInicio(item.data),
-            end: this.formatarTimestampDataFim(item.data, item.servico.duracao),
-            // start: new Date(),
-            // end: new Date(),
-            title: item.servico.nome,
-            split:item.prestador.id,
-            // content: '<i class="icon material-icons">shopping_cart</i>',
+      // for(let item of items){
+      //   this.events.push(
+      //     {
+      //       id: `${item.data}${item.empresa}`,
+      //       start: this.formatarTimestampDataInicio(item.data),
+      //       end: this.formatarTimestampDataFim(item.data, item.servico.duracao),
+      //       // start: new Date(),
+      //       // end: new Date(),
+      //       title: item.servico.nome,
+      //       split:item.prestador.id,
+      //       // content: '<i class="icon material-icons">shopping_cart</i>',
+      //       class: 'closed',
+      //       servico:{
+      //         ...item.servico
+      //       }
+      //     }
+      //   )
+      // }
+
+      let retorno =  await api({
+        method: 'GET',
+        url:  `/schedules`,
+        headers:{
+          ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
+          client : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.client ?? "",
+          uid : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.uid ?? ""
+        }
+      });
+      console.log(retorno.data.schedules, "items horarios agendamento")
+
+      this.events = this.montaObjetoAgendamentos(retorno.data.schedules)
+
+      console.log(this.events, "agenda")
+    },
+
+    montaObjetoAgendamentos(agendamentos){
+      let retorno = [];
+
+      agendamentos.map((agendamento)=>{
+        // if(agendamento.)
+        retorno.push({
+            // ...agendamento.services,
+            id: agendamento.id,
+            start: this.formatarTimestampDataInicio(agendamento.scheduledDate),
+            end: this.formatarTimestampDataFim(agendamento.scheduledDate, agendamento.services[0]?.duration ?? 30),
+            title: agendamento.services[0]?.name ?? "",
+            split: agendamento.professionalId,
+            content: '<i class="icon material-icons">shopping_cart</i>',
             class: 'closed',
             servico:{
-              ...item.servico
+              ...agendamento.services[0]
             }
-          }
-        )
-      }
-      console.log(this.events, "items horarios agendamento")
+            
+        })
+      });
+
+      return retorno
     },
 
     formatarTimestampDataInicio(timestamp) {
