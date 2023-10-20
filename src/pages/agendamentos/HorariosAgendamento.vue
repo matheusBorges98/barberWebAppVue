@@ -204,6 +204,17 @@ export default {
   border: 1px solid #8787873a;
 }
 
+.opened{
+  // border: 2px solid green;
+  background-color: #e4f5ef;
+  border: 1px solid #8787873a;
+}
+
+.pending{
+  // border: 2px solid green;
+  background-color: #f4f1bd;
+  border: 1px solid #8787873a;
+}
 
 .vuecal__event-title{
   font-size: 15px;
