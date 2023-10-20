@@ -86,6 +86,10 @@
 </template>
 
 <script>
+import imagemPadrao from "../../assets/sem_imagem.png"
+import Mixin from '../../core/Mixin';
+import api from "../../http/index"
+
 export default {
   data: function (){
     return{
@@ -94,21 +98,71 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params)
+    // console.log(this.$route.params)
     this.evento = this.$route.params.evento;
 
+    console.log(this.evento, "ev")
     if(this.evento && this.evento.servico){
-      this.servico = this.evento.servico;
+      this.servico = this.montarObjetoServico(this.evento.servico)
     };
+
+    console.log(this.servico, "serv")
   },
 
   methods:{
+     montarObjetoServico(service){
+      let retorno = {};
+
+      retorno = {
+        id        : service.id,
+        valor     : parseFloat(service.price),
+        imgUrl    : service?.imgUrl ?? imagemPadrao,
+        duracao   : service?.duration != null ? service.duration : 30,
+        nome      : service.name,
+        descricao : service.description,
+        itens     : service.itens,
+        ...service
+      };
+
+      return retorno;
+    },
+
     voltar(){
       this.$router.go(-1);
     },
 
-    cancelarAgendamento(){
+    async cancelarAgendamento(){
+    
+      try{
+        await api({
+          method: 'patch',
+          url: `/schedules/${this.evento.id}`,
+          data: {
+            schedule:{
+              situation:3
+            }
+            
+          },
+          headers:{
+            ["access-token"] : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.accessToken ?? "",
+            client : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.client ?? "",
+            uid : this.$store.getters.getPropriedades?.dadosUsuarioLogado?.uid ?? ""
+          }
+        });
 
+        this.$router.push({ path: `horariosAgendamentos` }).catch(() => {})
+      }catch(e){
+        this.$notify({
+          title: 'Falha ao cancelar o agendamento',
+          text: `
+                 
+          `,
+          duration:5000,
+          type: 'warn'
+        });
+
+        console.error(e)
+      }
     }
   }
 }
